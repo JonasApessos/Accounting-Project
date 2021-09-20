@@ -4,7 +4,7 @@ function HTMLShareholderAddForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$Inr
 {
   	//-------------<PHP-HTML>-------------//
 	print("
-	<div class='Form'>
+	<div class='form'>
 		<form method='POST'>
 			<div>
 				<div id='FormTitle'><h3>New Shareholder</h3></div>

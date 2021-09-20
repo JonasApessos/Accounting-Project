@@ -27,10 +27,10 @@ function HTMLJobPITDataBlock(mysqli_result &$InrResult, ME_CLogHandle &$InrLogHa
 {
 	//The toolbar for the buttons (tools)
 	printf("
-	<div class='ContentToolBar'>
+	<div class='content-tool-bar'>
 		<form method='POST'>
 			<input type='hidden' name='JobIndex' value='%d' required>
-			<input class='Input-Left' type='submit' value='ADD' formaction='.?MenuIndex=%d&Module=%d&SubModule=%s'>
+			<input class='input-left' type='submit' value='ADD' formaction='.?MenuIndex=%d&Module=%d&SubModule=%s'>
 		</form>
 	</div>",
 	$IniJobIndex,
@@ -44,7 +44,7 @@ function HTMLJobPITDataBlock(mysqli_result &$InrResult, ME_CLogHandle &$InrLogHa
 		{
 			//DATA BLOCK
 			printf("
-			<div class='DataBlock'>
+			<div class='data-block'>
 				<form method='POST'>
 					<div><h5>Transaction</h5></div>
 					<div>
@@ -102,9 +102,9 @@ function HTMLJobOverviewDataBlock(ME_CDBConnManager &$InrConn, mysqli_result &$I
 
 	//The toolbar for the buttons (tools)
 	printf("
-	<div class='ContentToolBar'>
+	<div class='content-tool-bar'>
 		<a href='.?MenuIndex=%d&Module=%d'>
-			<div class='Button-Left'><h5>ADD</h5></div>
+			<div class='button-left'><h5>ADD</h5></div>
 		</a>
 		<form action='.' method='get'>
 			<input type='hidden' name='MenuIndex' value='%d'><label>Search by%s</label>
@@ -130,7 +130,7 @@ function HTMLJobOverviewDataBlock(ME_CDBConnManager &$InrConn, mysqli_result &$I
 
 			//Title
 			printf("
-			<div class='DataBlock'>
+			<div class='data-block'>
 				<form method='POST'>
 					<div><h5>%s</h5></div>", $aJobRow['JOB_DATA_TITLE']);
 

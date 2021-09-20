@@ -1,7 +1,7 @@
-.Header
+.header
 {
-	background-color:var(--DarkGreyWarmTemp);
-	color:var(--FullWhite);
+	background-color:var(--header);
+	color:white;
 	width:100%;
 	height:auto;
 	margin:0%;
@@ -9,22 +9,22 @@
 	float:Left;
 	clear:both;
 	z-index:-1;
+	border-bottom-width:0.15em;
+	border-bottom-color:black;
+	border-bottom-style:solid;
 }
 
-.Header > div
+.header > div
 {
 	width:100%;
 	height:auto;
-	border-bottom-width:0.1875em;
-	border-bottom-style:solid;
-	border-bottom-color:var(--MiddleGreyWarmTemp);
 	margin:0%;
 	padding:0%;
 	float:left;
 	clear:none;
 }
 
-.HeaderTitle
+.header-title
 {
 	width:75%;
 	height:100%;
@@ -33,135 +33,74 @@
 	clear:both;
 }
 
-.HeaderTitle > h1
+.header-title > h1
 {
-	padding:4% 0% 0% 0%;
+	margin:4.25% 0% 0% 0%;
 }
 
-.Login
+.login
 {
-	background-color:var(--DarkGreyWarmTemp);
-	width:25%;
+	width:24.5%;
 	margin:0%;
 	padding:0%;
-	float:left;
-	clear:right;
-}
-
-.Login > div
-{
-	width:99.5%;
-	border-left-width:0.1875em;
-	border-left-color:var(--MiddleGreyWarmTemp);
-	border-left-style:solid;
-	float:left;
-	clear:both;
-}
-
-.Login > div div
-{
-	color:var(--FullWhite);
-	width:96%;
-	margin:1% 1%;
-	padding:1%;
-	float:left;
-	clear:both;
-}
-
-.Login > div div div
-{
-	background-color:var(--MainButtonColor);
-}
-
-.Login > div div:nth-child(2) > input
-{
-	background-color:var(--MainButtonColor);
-	color:inherit;
+	border-left: 0.15em solid black;
 	float:right;
+	clear:right;
+	background-color:var(--dark-grey);
 }
 
-.Login > div div > div:first-child
-{
-	width:98%;
-	margin:0% 0% 3% 0%;
-	text-align:center;
-	clear:both;
-}
-
-.Login > div div div > input
+.login form > div:first-child
 {
 	width:100%;
+	text-align: center;
+	margin:2.5% 0%;
+}
+
+.login form > div > label > input
+{
+	float:right;
+}
+
+.login form > div
+{
+	width:75%;
 	float:left;
 	clear:both;
+	margin:1% 15%;
 }
 
-.Login > div div div > div:nth-child(1)
+.login form > div > input
 {
-	width:45%;
-	height:auto;
-	padding:0%;
-	margin:0%;
-	text-align:left;
-	float:left;
-	clear:left;
+	margin:1% 0%;
+	padding:2.5%;
+	font-size:125%;
+	border-radius: 0.3em;
 }
 
-.Login > div div div > div:nth-child(2)
+.loged-in
 {
-	background-color:var(--FullBlack);
-	width:45%;
-	height:auto;
-	padding:0%;
-	text-align:center;
+	background-color:var(--dark-grey);
+	color:white;
+	width:24%;
 	float:right;
 	clear:right;
+	border-left-width: 0.15em;
+	border-left-color: black;
+	border-left-style: solid;
 }
 
-.Login > div div div div:nth-child(2) > input
-{
-	background-color:var(--FullWhite);
-	color:var(--FullBlack);
-	height:100%;
-	padding:0%;
-	float:right;
-	clear:both;
-}
-
-.LogedIn
-{
-	background-color:var(--DarkGreyWarmTemp);
-	color:var(--FullWhite);
-	width:25%;
-	float:left;
-	clear:right;
-}
-
-.LogedIn > div
+.loged-in > div
 {
 	width:99.5%;
-	border-left-width:0.1875em;
-	border-left-color:var(--MiddleGreyWarmTemp);
-	border-left-style:solid;
 	float:right;
 	clear:both;
-}
-
-.LogedIn div div
-{
-	width:100%;
-	margin:0% 0% 5% 0%;
-	float:left;
-	clear:both;
-}
-
-.LogedIn div > div > div
-{
 	text-align:center;
-	margin:0%;
 }
 
-.LogedIn div > div > div:first-child
+.loged-in > div:last-child
 {
-	background-color:var(--MainButtonColor);
-	margin:0% 0% 5% 0%;
+	width:40%;
+	background-color:var(--main-button);
+	margin:5% 5% 2.5% 0%;
+	font-size:100%;
 }

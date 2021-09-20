@@ -5,13 +5,13 @@ $rErrorProcLogHandle = new ME_CLogHandle($rErrorProcFileHandle, "LoginProcess", 
 
 $rConn = new ME_CDBConnManager($rErrorProcLogHandle, $_SESSION['DBName'], $_SESSION['ServerDNS'], $_SESSION['DBUsername'], $_SESSION['DBPassword'], $_SESSION['DBPrefix']);
 
-function HTMLHeader(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle)
+function HTMLHeader(ME_CLogHandle &$InrLogHandle)
 {
 	//Header Box
 	print("
-	<div class='Header'>
+	<div class='header'>
 		<div>
-			<div class='HeaderTitle'>");
+			<div class='header-title'>");
 
 	if(isset($_GET['MenuIndex']))
 	{
@@ -59,23 +59,21 @@ function HTMLHeader(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle)
 
 	print("	</div>");
 
-	HTMLHeaderLogin($InrConn, $InrLogHandle);
+	HTMLHeaderLogin($InrLogHandle);
 
 	print("
 		</div>
 	</div>");
 }
 
-function HTMLHeaderLogin(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle)
+function HTMLHeaderLogin(ME_CLogHandle &$InrLogHandle)
 {
 	//Header check state of user connection and display connected or not in the login box
-	if(isset($_SESSION['Login']) && $_SESSION['Login'])
-	{
-		ProFunctionCallback($InrLogHandle,"HTMLLogedIn", $GLOBALS['ACCESS']['EMPLOYEE'], "GET");
-	}
+	if(isset($_SESSION['Login']) && $_SESSION['Login'] == TRUE)
+		ProFunctionCallback($InrLogHandle,"HTMLLogedIn", $GLOBALS['ACCESS']['EMPLOYEE'], (!isset($_GET['Login']) ? "GET" : "POST"));
 	else
 		ProFunctionCallback($InrLogHandle, "HTMLLoginForm", $GLOBALS['ACCESS']['GUEST'], "GET");
 }
 
-HTMLHeader($rConn, $rErrorProcLogHandle);
+HTMLHeader($rErrorProcLogHandle);
 ?>

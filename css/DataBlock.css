@@ -1,6 +1,15 @@
-.DataBlock
+:root
 {
-	background-color:var(--FullWhite);
+	--data-block-background-title:var(--header);
+	--data-block-background-subtitle:var(--middle-grey);
+	--data-block-button:#5c91d6;
+	--data-block-button-hover:#85ace0;
+}
+
+.data-block
+{
+	background-color:white;
+	outline: black solid 0.15em;
 	width:23%;
 	min-width:20em;
 	height:auto;
@@ -9,7 +18,7 @@
 	margin:1%;
 }
 
-.DataBlock div
+.data-block form div
 {
 	width:100%;
 	height:auto;
@@ -19,9 +28,34 @@
 	padding:0%;
 }
 
-.DataBlock div input
+.data-block form > div:first-child
 {
-	color:var(--FullWhite);
+	border-bottom: 0.1em solid black;
+}
+
+.data-block form > div:last-child
+{
+	border-top: 0.1em solid black;
+}
+
+.data-block form > div:first-child, .data-block form > div:last-child
+{
+	background-color:var(--data-block-background-title);
+	width:90%;
+	float:left;
+	padding:5%;
+	text-align: center;
+}
+
+.data-block form > div:last-child
+{
+	width:98%;
+	padding:1%;
+}
+
+.data-block form div input
+{
+	color:white;
 	text-shadow:none;
 	font-size:100%;
 	width:6em;
@@ -32,84 +66,92 @@
 	padding:1%;
 }
 
-.DataBlock div input[type="submit"]
+.data-block form div input[type="submit"]
 {
-	background-color:var(--MainButtonColor);
+	background-color:var(--data-block-button);
 	float:left;
+	border-radius: 0.3em;
 	margin:2%;
+	padding:2.5%;
 	transition:transform 0.25s, background-color 0.25s, text-shadow 0.25s;
 }
 
-.DataBlock div input[type="submit"]:disabled
+.data-block form div input[type="submit"]:disabled
 {
-	background-color:var(--MiddleGreyNeutral);
+	background-color:var(--middle-grey);
 	float:left;
 	margin:2%;
 }
 
-.DataBlock div input[type="submit"]:disabled:hover
+.data-block form div input[type="submit"]:disabled:hover
 {
-	background-color:var(--MiddleGreyNeutral);
+	background-color:var(--middle-grey);
 	cursor:initial;
-	text-shadow:0px 0px 0px var(--FullBlack);
+	text-shadow:0px 0px 0px black;
 	transform:scale(1);
 }
 
-.DataBlock div input[type="submit"]:hover
+.data-block form div input[type="submit"]:hover
 {
-	background-color:rgba(235, 120, 120);
-	text-shadow:0px 0px 4px var(--FullWhite);
+	background-color:#eb7878;
+	text-shadow:0px 0px 4px white;
 	transform:scale(1.1);
 }
 
-.DataBlock div input[type="submit"]:last-child
+.data-block form div input[type="submit"]:last-child
 {
-	background-color:var(--MainButtonColor);
+	background-color:var(--data-block-button);
+	border-radius: 0.3em;
 	float:right;
 }
 
-.DataBlock div input[type="submit"]:last-child:disabled
+.data-block form div input[type="submit"]:last-child:disabled
 {
-	background-color:var(--MiddleGreyNeutral);
+	background-color:var(--middle-grey);
 }
 
-.DataBlock div input[type="submit"]:last-child:hover
+.data-block form div input[type="submit"]:last-child:hover
 {
-	background-color:rgba(235, 225, 120, 1);
-	text-shadow:0px 0px 4px var(--FullWhite);
+	background-color:#ebe178;
+	text-shadow:0px 0px 4px white;
 	transform:scale(1.1);
 }
 
-.DataBlock div input[type="submit"]:last-child:disabled:hover
+.data-block form div input[type="submit"]:last-child:disabled:hover
 {
-	background-color:var(--MiddleGreyNeutral);
+	background-color:var(--middle-grey);
 	cursor:initial;
-	text-shadow:0px 0px 0px var(--FullBlack);
+	text-shadow:0px 0px 0px black;
 	transform:scale(1);
 }
 
-.DataBlock div > div
+.data-block form div > div
 {
-	background-color:var(--MainButtonColor);
-	color:var(--FullWhite);
 	width:86%;
 	margin:0.25% 5%;
 	padding:2%;
 }
 
-.DataBlock div > div:first-child
+.data-block form div > div > p
 {
-	background-color:rgba(21, 41, 119, 1);
-	width:100%;
-	height:auto;
 	text-align:center;
-	margin:0% 0% 2% 0%;
-	padding:2% 0%;
+	color:black;
+	font-size:18px;
 }
 
-.DataBlock div div > div:first-child
+.data-block form div > div:first-child
 {
-	background-color:var(--FullBlack);
+	background-color:var(--data-block-background-subtitle);
+	width:96%;
+	height:auto;
+	text-align:left;
+	margin:0%;
+	padding:2%;
+}
+
+.data-block form div div > div:first-child
+{
+	background-color:white;
 	width:40%;
 	text-align:left;
 	float:left;
@@ -118,7 +160,7 @@
 	padding:0%;
 }
 
-.DataBlock div div > div:last-child
+.data-block form div div > div:last-child
 {
 	width:60%;
 	text-align:right;

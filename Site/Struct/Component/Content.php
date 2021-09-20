@@ -1,5 +1,5 @@
 
-<div class='Content'>
+<div class='content'>
 <?php
 //If $_GET['MenuIndex'] is set
 if(isset($_GET["MenuIndex"]))

@@ -1,6 +1,6 @@
 @media screen and (min-width: 640px)
 {
-	.MenuWindow
+	.menu-window
 	{
 		width:auto;
 		height:720px;
@@ -13,7 +13,7 @@
 
 @media screen and (min-width: 1280px)
 {
-	.MenuWindow
+	.menu-window
 	{
 		width:auto;
 		height:1080px;
@@ -26,7 +26,7 @@
 
 @media screen and (min-width: 2560px)
 {
-	.MenuWindow
+	.menu-window
 	{
 		width:auto;
 		height:1800px;
@@ -39,7 +39,7 @@
 
 @media screen and (min-width: 3840px)
 {
-	.MenuWindow
+	.menu-window
 	{
 		width:auto;
 		height:2160px;
@@ -52,7 +52,7 @@
 
 @media screen and (min-width: 4096px)
 {
-	.MenuWindow
+	.menu-window
 	{
 		width:auto;
 		height:2880px;
@@ -66,7 +66,7 @@
 @media screen and (min-width: 7680px)
 {
 
-	.MenuWindow
+	.menu-window
 	{
 		width:auto;
 		height:4320px;
@@ -77,9 +77,9 @@
 	}
 }
 
-.MainMenu
+.main-menu
 {
-	background-color:var(--DarkGreyWarmTemp);
+	background-color:var(--dark-grey);
 	width:25%;
 	height:100%;
 	min-width:200px;
@@ -91,46 +91,46 @@
 	display:none;
 }
 
-.MainMenu div
+.main-menu div
 {
 	width:100%;
 	height:100%;
-	border-right:0.1875em solid var(--MiddleGreyWarmTemp);
+	border-right:0.1875em solid var(--middle-grey);
 	padding:1% 0%;
 	margin:0%;
 	float:left;
 	clear:both;
 }
 
-.MainMenu div a .MainMenuButton
+.main-menu div a .main-menu-button
 {
-	background-color:var(--MainButtonColor);
-	color:var(--FullWhite);
+	background-color:var(--main-button);
+	color:white;
 	width:83%;
 	height:auto;
-	border:0.1em solid var(--FullBlack);
+	border:0.1em solid black;
 	padding:5%;
 	margin:0% 2.5% 5% 2.5%;
 	transition: background-color 0.25s, border-color 0.25s, box-shadow 0.25s, text-shadow 0.25s, transform 0.25s;
 }
 
-.MainMenu div a .MainMenuButton:hover
+.main-menu div a .main-menu-button:hover
 {
-	background-color:var(--MainButtonHoverColor);
-	border-color:var(--FullWhite);
-	box-shadow: 0px 0px 5px var(--FullWhite);
-	text-shadow:0px 0px 4px var(--FullWhite);
+	background-color:var(--main-button-hover);
+	border-color:white;
+	box-shadow: 0px 0px 5px white;
+	text-shadow:0px 0px 4px white;
 	transform:scale(1.1);
 }
 
-.MainMenu p
+.main-menu p
 {
 	text-align:center;
 }
 
-.MenuButton
+.menu-button
 {
-	background-color:rgba(100,100,0,1);
+	background-color:#646400;
 	width:30px;
 	height:30px;
 	margin:25% 0%;

@@ -18,7 +18,7 @@ function HTMLShareholderEditForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$In
 
                 //Title
                 print("
-                <div class='Form'>
+                <div class='form'>
                     <form method='POST'>
                         <div>
                             <div id='FormTitle'><h3>Edit Shareholder</h3></div>

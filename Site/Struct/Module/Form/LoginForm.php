@@ -5,12 +5,12 @@ function HTMLLogedIn(ME_CLogHandle &$InrLogHandle)
 	{
 		//Employee name
 		printf("
-		<div class='LogedIn'>
+		<div class='loged-in'>
 			<div>
 				<div><h2>Welcome</h2></div>
 				<div><h4>%s</h4></div>
 			</div>
-			<div>
+			<div class='button-right'>
 				<a href='.?Logout'><h4>Logout</h4></a>
 			</div>
 		</div>",
@@ -23,13 +23,13 @@ function HTMLLogedIn(ME_CLogHandle &$InrLogHandle)
 function HTMLLoginForm()
 {
 	print("
-	<form method='POST'>
-		<div>
+	<div class='login'>
+		<form method='POST'>
 			<div id='Title'><h4>Login</h4></div>
 			<div><label>Email<input type='email' name='Email' required></label></div>
 			<div><label>Password<input type='password' name='Pass' required></label></div>
-			<div><input type='submit' value='Login' formaction='.?Login'></div>
-		</div>
-	</form>");
+			<div><input class='button-right' type='submit' value='Login' formaction='.?Login'></div>
+		</form>
+	</div>");
 }
 ?>

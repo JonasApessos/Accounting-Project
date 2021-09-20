@@ -1,7 +1,7 @@
-.Footer
+.footer
 {
-	background-color:var(--DarkGreyWarmTemp);
-	color:var(--FullWhite);
+	background-color:var(--footer);
+	color:white;
 	width:100%;
 	height:auto;
 	float:left;
@@ -9,13 +9,13 @@
 	z-index:-1;
 }
 
-.Footer div
+.footer div
 {
 	width:100%;
 	height:auto;
-	border-top-width:0.1875em;
+	border-top-width:0.15em;
 	border-top-style:solid;
-	border-top-color:var(--MiddleGreyWarmTemp);
+	border-top-color:black;
 	float:left;
 	clear:both;
 }

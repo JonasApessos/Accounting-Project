@@ -17,7 +17,7 @@ function HTMLJobEditForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHand
                 //-------------<PHP-HTML>-------------//
 
                 printf("
-                <div class='Form'>
+                <div class='form'>
                     <form method='POST'>
                         <div>
                             <div id='FormTitle'><h3>Edit Job</h3><h4>%s</h4></div>

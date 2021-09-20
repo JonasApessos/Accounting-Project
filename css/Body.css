@@ -1,27 +1,21 @@
 :root
 {
-	--LightGreyNeutral:rgb(200, 200, 200);
-	--LightGreyWarmTemp:rgb(200, 190, 190);
-	--LightGreyCoolTemp:rgb(190, 190, 200);
-	--MiddleGreyNeutral:rgb(128, 128, 128);
-	--MiddleGreyWarmTemp:rgb(128, 118, 118);
-	--MiddleGreyCoolTemp:rgb(118, 118, 128);
-	--DarkGreyNeutral:rgb(64, 64, 64);
-	--DarkGreyWarmTemp:rgb(64, 60, 60);
-	--DarkGreyCoolTemp:rgb(60, 60, 64);
-	--VeryDarkGreyNeutral:rgb(32, 32, 32);
-	--VeryDarkGreyWarmTemp:rgb(32, 30, 30);
-	--VeryDarkGreyCoolTemp:rgb(30, 30, 32);
-	--FullBlack:rgba(0, 0, 0, 1);
-	--FullWhite:rgb(255, 255, 255);
-	--MainButtonColor:rgb(115, 124, 175);
-	--MainButtonHoverColor:rgb(125, 144, 195);
+	--light-grey:#c8c8c8;
+	--middle-grey:#666666;
+	--dark-grey:#404040;
+	--very-dark-grey:#202020;
+	--main-button:#3375cc;
+	--main-button-hover:#5c91d6;
+	--main-text:#ffffff;
+	--data-block:var(--middle-grey);
+	--header:#295ea3;
+	--footer:var(--header);
 }
 
 body
 {
-	background-color:var(--VeryDarkGreyWarmTemp);
-	font-size:16px;
+	background-color:var(--very-dark-grey);
+	font-size:1em;
 	width:100%;
 	clear:both;
 	float:left;
@@ -31,6 +25,7 @@ body
 
 p, h1, h2, h3, h4, h5
 {
+	color:var(--main-text);
 	font-family:"Verdana", Geneva, sans-serif;
 	margin:0%;
 	padding:0%;
@@ -39,38 +34,38 @@ p, h1, h2, h3, h4, h5
 
 p
 {
-	font-size:16px;
+	font-size:1em;
 	word-wrap: break-word;
 }
 
 h5
 {
-	font-size:24px;
+	font-size:1.3em;
 }
 
 h4
 {
-	font-size:32px;
+	font-size:1.6em;
 }
 
 h3
 {
-	font-size:48px;
+	font-size:2em;
 }
 
 h2
 {
-	font-size:64px;
+	font-size:2.25em;
 }
 
 h1
 {
-	font-size:72px;
+	font-size:2.5em;
 }
 
 a
 {
-	color:var(--MainConstTextColor);
+	color:var(--main-text);
 	text-decoration:none;
 }
 
@@ -81,36 +76,37 @@ input
 
 a:hover
 {
-	color:var(--MainConstTextColor);
+	color:var(--main-text);
 	text-decoration:none;
 }
 
-.Button-Left
+.button-left
 {
-	background-color:var(--MainButtonColor);
-	color:var(--FullWhite);
+	background-color:var(--main-button);
+	color:white;
 	text-shadow:none;
 	width:25%;
 	margin:0%;
 	padding:5%;
 	font-size:150%;
 	text-align:center;
+	border-radius:0.3em;
 	float:left;
 	clear:none;
 	transition: transform 0.25s, background-color 0.25s, text-shadow 0.25s;
 }
 
-.Button-Left:hover
+.button-left:hover
 {
-	background-color:var(--MainButtonHoverColor);
-	text-shadow: 0px 0px 4px var(--FullWhite);
+	background-color:var(--main-button-hover);
+	text-shadow: 0px 0px 4px white;
 	transform:scale(1.1);
 }
 
-.Button-Left-ClearL
+.button-left-clear-left
 {
-	background-color:var(--MainButtonColor);
-	color:var(--FullWhite);
+	background-color:var(--main-button);
+	color:white;
 	text-shadow:none;
 	width:4%;
 	margin:1%;
@@ -122,17 +118,17 @@ a:hover
 	transition: transform 0.25s, background-color 0.25s, text-shadow 0.25s;
 }
 
-.Button-Left-ClearL:hover
+.button-left-clear-left:hover
 {
-	background-color:var(--MainButtonHoverColor);
-	text-shadow: 0px 0px 4px var(--FullWhite);
+	background-color:var(--main-button-hover);
+	text-shadow: 0px 0px 4px white;
 	transform:scale(1.1);
 }
 
-.Button-Left-ClearB
+.button-left-clear-right
 {
-	background-color:var(--MainButtonColor);
-	color:var(--FullWhite);
+	background-color:var(--main-button);
+	color:white;
 	text-shadow:none;
 	width:7%;
 	min-width:100px;
@@ -145,17 +141,17 @@ a:hover
 	transition: transform 0.25s, background-color 0.25s, text-shadow 0.25s;
 }
 
-.Button-Left-ClearB:hover
+.button-left-clear-right:hover
 {
-	background-color:var(--MainButtonHoverColor);
-	text-shadow: 0px 0px 4px var(--FullWhite);
+	background-color:var(--main-button-hover);
+	text-shadow: 0px 0px 4px white;
 	transform:scale(1.1);
 }
 
-.Button-Right
+.button-right
 {
-	background-color:var(--MainButtonColor);
-	color:var(--FullWhite);
+	background-color:var(--main-button);
+	color:white;
 	text-shadow:none;
 	width:7%;
 	min-width:100px;
@@ -163,22 +159,23 @@ a:hover
 	padding:1%;
 	font-size:150%;
 	text-align:center;
+	border-radius: 0.3em;
 	float:right;
 	clear:none;
 	transition: transform 0.25s, background-color 0.25s, text-shadow 0.25s;
 }
 
-.Button-Right:hover
+.button-right:hover
 {
-	background-color:var(--MainButtonHoverColor);
-	text-shadow: 0px 0px 4px var(--FullWhite);
+	background-color:var(--main-button-hover);
+	text-shadow: 0px 0px 4px white;
 	transform:scale(1.1);
 }
 
-.Input-Left
+.input-left
 {
-	background-color:var(--MainButtonColor);
-	color:var(--FullWhite);
+	background-color:var(--main-button);
+	color:white;
 	border-style:none;
 	text-shadow:none;
 	font-weight:bold;
@@ -194,17 +191,17 @@ a:hover
 	transition: transform 0.25s, background-color 0.25s, text-shadow 0.25s;
 }
 
-.Input-Left:hover
+.input-left:hover
 {
-	background-color:var(--MainButtonHoverColor);
-	text-shadow: 0px 0px 4px var(--FullWhite);
+	background-color:var(--main-button-hover);
+	text-shadow: 0px 0px 4px white;
 	transform:scale(1.1);
 }
 
-.Input-Right
+.input-right
 {
-	background-color:var(--MainButtonColor);
-	color:var(--FullWhite);
+	background-color:var(--main-button);
+	color:white;
 	border-style:none;
 	text-shadow:none;
 	cursor:pointer;
@@ -219,9 +216,9 @@ a:hover
 	transition: transform 0.25s, background-color 0.25s, text-shadow 0.25s;
 }
 
-.Input-Right:hover
+.input-right:hover
 {
-	background-color:var(--MainButtonHoverColor);
-	text-shadow: 0px 0px 4px var(--FullWhite);
+	background-color:var(--main-button-hover);
+	text-shadow: 0px 0px 4px white;
 	transform:scale(1.1);
 }

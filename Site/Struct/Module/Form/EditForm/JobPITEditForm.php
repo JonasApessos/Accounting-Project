@@ -16,7 +16,7 @@ function HTMLJobPITEditForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogH
 
                 //Input Row - payment
                 printf("
-                <div class='Form'>
+                <div class='form'>
                     <form method='POST'>
                         <div>
                             <div id='FormTitle'><h3>Edit Payment</h3></div>

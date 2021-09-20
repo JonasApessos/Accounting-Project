@@ -3,7 +3,7 @@ function HTMLEmployeeAddForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLog
 {
     //-------------<PHP-HTML>-------------//
     print("
-    <div class='Form'>
+    <div class='form'>
         <form method='POST'>
             <div>
                 <div id='FormTitle'><h3>New Employee</h3></div>

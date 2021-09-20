@@ -16,7 +16,7 @@ function HTMLCompanyEditForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLog
                 //-------------<PHP-HTML>-------------//
                 
                 printf("
-                <div class='Form'>
+                <div class='form'>
                     <form method='POST'>
                         <div>
                             <div id='FormTitle'><h3>Edit Company</h3><br><h4>%s</h4></div>

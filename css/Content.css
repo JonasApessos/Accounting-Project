@@ -1,4 +1,9 @@
-.Content
+:root
+{
+	--tool-bar:var(--dark-grey);
+}
+
+.content
 {
 	width:100%;
 	height:100%;
@@ -8,18 +13,18 @@
 	z-index:-1;
 }
 
-.ContentArrayBlock
+.content-array-block
 {
 	width:100%;
 	float:left;
 	clear:both;
 }
 
-.ContentToolBar
+.content-tool-bar
 {
-	background-color:var(--MiddleGreyWarmTemp);
-	border-bottom-width:0.1875em;
-	border-bottom-color:rgba(50,52,48,1);
+	background-color:var(--tool-bar);
+	border-bottom-width:0.15em;
+	border-bottom-color:black;
 	border-bottom-style:solid;
 	width:100%;
 	float:left;
@@ -27,11 +32,16 @@
 	margin:0%;
 }
 
-.ContentToolBar div
+.content-tool-bar div
 {
 	width:5%;
 	padding:1%;
 	clear:both;
 	float:left;
 	margin:0.5% 0.0% 0.5% 0.5%;
+}
+
+.content-tool-bar h5
+{
+	font-size:1em;
 }

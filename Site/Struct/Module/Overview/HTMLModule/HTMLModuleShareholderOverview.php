@@ -30,9 +30,9 @@ function HTMLShareholderDataBlock(mysqli_result &$InrResult, ME_CLogHandle &$Inr
 
 	//The toolbar for the buttons (tools)
 	printf("
-	<div class='ContentToolBar'>
+	<div class='content-tool-bar'>
 		<a href='.?MenuIndex=%d&Module=%d'>
-			<div class='Button-Left'><h5>ADD</h5></div>
+			<div class='button-left'><h5>ADD</h5></div>
 		</a>
 		<form action='.' method='get'>
 			<input type='hidden' name='MenuIndex' value='%d'><label>Search by%s</label>
@@ -49,7 +49,7 @@ function HTMLShareholderDataBlock(mysqli_result &$InrResult, ME_CLogHandle &$Inr
 	foreach($InrResult->fetch_all(MYSQLI_ASSOC) as $aDataRow)
 	{
 		printf("
-		<div class='DataBlock'>
+		<div class='data-block'>
 			<form method='POST'>
 				<div><h5>%s %s</h5></div>
 				<div>

@@ -33,6 +33,7 @@ require_once("Data/ConnData/DBSessionToken.php");
 <link rel="stylesheet" href="../css/Content.css">
 <link rel="stylesheet" href="../css/Footer.css">
 <link rel="stylesheet" href="../css/MainMenu.css">
+<link rel="stylesheet" href="../css/DataBlock.css">
 
 <?php
 
@@ -176,7 +177,7 @@ else
 require_once("Struct/Component/MainMenu.php");
 ?>
 
-<div class="Wrapper">
+<div class="wrapper">
 
 <?php
 //Header content

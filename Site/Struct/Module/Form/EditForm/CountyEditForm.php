@@ -17,7 +17,7 @@ function HTMLCountyEditForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogH
                 //-------------<PHP-HTML>-------------//
 
                 printf("
-                <div class='Form'>
+                <div class='form'>
                     <form method='POST'>
                         <div>
                             <div id='FormTitle'><h3>New County</h3><br><h4>%s</h4></div>

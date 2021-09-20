@@ -17,7 +17,7 @@ function HTMLEmployeeEditForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLo
                 //-------------<PHP-HTML>-------------//
 
                 printf("
-                <div class='Form'>
+                <div class='form'>
                     <form method='POST'>
                         <div>
                             <div id='FormTitle'><h3>Edit Employee</h3><br><h4>%s %s</h4></div>
