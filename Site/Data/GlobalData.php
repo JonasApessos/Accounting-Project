@@ -1,8 +1,8 @@
 <?php
 $APP_VERSION_MAJOR = 0;
 $APP_VERSION_MIDDLE = 3;
-$APP_VERSION_MINOR = 0;
-$APP_PATCH = 0;
+$APP_VERSION_MINOR = 2;
+$APP_PATCH = 1;
 
 $CONN_ENCODING = "utf8";
 
@@ -35,14 +35,15 @@ $ACCESS =
 $MENU = 
 [
     'ERROR' => ["TITLE" => "Error", "INDEX" => -1],
-    'COMPANY' => ["TITLE" => "Company", "INDEX" => 0],
-    'COUNTRY' => ["TITLE" => "Country", "INDEX" => 1],
-    'EMPLOYEE' => ["TITLE" => "Employee", "INDEX" => 2],
-    'EMPLOYEE_POSITION' => ["TITLE" => "Employee Position", "INDEX" => 3],
-    'JOB' => ["TITLE" => "Job", "INDEX" => 4],
-    'SHAREHOLDER' => ["TITLE" => "Shareholder", "INDEX" => 5],
-    'CUSTOMER' => ["TITLE" => "Customer", "INDEX" => 6],
-    'COUNTY' => ["TITLE" => "County", "INDEX" => 7]
+    'HOME' => ["TITLE" => "Home", "INDEX" => 0],
+    'COMPANY' => ["TITLE" => "Company", "INDEX" => 1],
+    'COUNTRY' => ["TITLE" => "Country", "INDEX" => 2],
+    'EMPLOYEE' => ["TITLE" => "Employee", "INDEX" => 3],
+    'EMPLOYEE_POSITION' => ["TITLE" => "Employee Position", "INDEX" => 4],
+    'JOB' => ["TITLE" => "Job", "INDEX" => 5],
+    'SHAREHOLDER' => ["TITLE" => "Shareholder", "INDEX" => 6],
+    'CUSTOMER' => ["TITLE" => "Customer", "INDEX" => 7],
+    'COUNTY' => ["TITLE" => "County", "INDEX" => 8]
 ];
 
 $MODULE = 

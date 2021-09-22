@@ -1,6 +1,12 @@
 
-    <div class='menu-window'><div class='main-menu' id='MainMenu'>
+<nav class='menu-window'>
+    <div class='main-menu' id='MainMenu'>
         <div>
+            <a href=".?MenuIndex=<?php echo $GLOBALS['MENU']['HOME']['INDEX']?>">
+                <div class='main-menu-button'>
+                    <p><?php echo $GLOBALS['MENU']['HOME']['TITLE']?></p>
+                </div>
+            </a>
             <a href=".?MenuIndex=<?php echo $GLOBALS['MENU']['COMPANY']['INDEX']?>">
                 <div class='main-menu-button'>
                     <p><?php echo $GLOBALS['MENU']['COMPANY']['TITLE']?></p>
@@ -46,4 +52,4 @@
 
     <div class='menu-button' onclick='RenderMenuDisplay()'>
     </div>
-</div>
+</nav>

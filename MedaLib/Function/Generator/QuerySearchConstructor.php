@@ -1,8 +1,6 @@
 <?php
-function SearchQueryConstructor(string &$InsSearchQuery) : void
+function SearchQueryConstructor(string &$OutsSearchQuery) : void
 {
-	$TempString = $InsSearchQuery;
-
-	$InsSearchQuery = "%" . $TempString . "%";
+	$OutsSearchQuery = "%" . $OutsSearchQuery . "%";
 }
 ?>

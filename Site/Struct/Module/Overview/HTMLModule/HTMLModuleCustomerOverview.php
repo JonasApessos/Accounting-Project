@@ -22,6 +22,8 @@ function HTMLCustomerOverview(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLo
 
 function HTMLCustomerOverviewDataBlock(mysqli_result &$InrResult, ME_CLogHandle &$InrLogHandle, int $IniUserAccess) : void
 {
+	$sCustomerHTML = "";
+
 	$sSearchSelectStructName = "SearchType";
     $sHTMLGeneratedSelectStructure = "";
     $sSearchTypeSelected = isset($_GET[$sSearchSelectStructName]) ? $_GET[$sSearchSelectStructName] : "";
@@ -29,77 +31,61 @@ function HTMLCustomerOverviewDataBlock(mysqli_result &$InrResult, ME_CLogHandle 
     HTMLGenerateSelectStructure($sHTMLGeneratedSelectStructure, $sSearchSelectStructName, $GLOBALS['CUSTOMER_SEARCH_TYPE'], $sSearchTypeSelected);
 
 	//The toolbar for the buttons (tools)
-	printf("
+	$sCustomerHTML .= "
 	<div class='content-tool-bar'>
-		<a href='.?MenuIndex=%d&Module=%d'>
+		<a href='.?MenuIndex=".$GLOBALS['MENU']['CUSTOMER']['INDEX']."&Module=".$GLOBALS['MODULE']['ADD']."'>
 			<div class='button-left'><h5>ADD</h5></div>
 		</a>
 		<form action='.' method='get'>
-			<input type='hidden' name='MenuIndex' value='%d'><label>Search by%s</label>
-			<label>Query</label><input type='text' name='SearchQuery' value='%s'>
+			<input type='hidden' name='MenuIndex' value='".$GLOBALS['MENU']['CUSTOMER']['INDEX']."'><label>Search by ".$sHTMLGeneratedSelectStructure."</label>
+			<label>Query</label><input type='text' name='SearchQuery' value='".((isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "")."'>
 			<button>submit</button>
 		</form>
-	</div>",
-	$GLOBALS['MENU']['CUSTOMER']['INDEX'],
-	$GLOBALS['MODULE']['ADD'],
-	$GLOBALS['MENU']['CUSTOMER']['INDEX'],
-	$sHTMLGeneratedSelectStructure,
-	(isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "");
+	</div>";
 
 	foreach($InrResult as $aDataRow)
 	{
 		if(((int) $aDataRow['CUST_DATA_ACCESS']) >= $IniUserAccess)
 		{
-			printf("
+			$sCustomerHTML .= "
 			<div class='data-block'>
 				<form method='POST'>
 					<div>
-						<div><h5>%s %s</h5></div>
+						<div><h5>".$aDataRow['CUST_DATA_NAME']." ".$aDataRow['CUST_DATA_SURNAME']."</h5></div>
 					<div>
 						<div><b><p>Email</p></b></div>
-						<div><p>%s</p></div>
+						<div><p>".(empty($aDataRow['CUST_DATA_EMAIL']) ? "None" : $aDataRow['CUST_DATA_EMAIL'])."</p></div>
 					</div>
 					<div>
 						<div><b><p>Phone number</p></b></div>
-						<div><p>%s</p></div>
+						<div><p>".(empty($aDataRow['CUST_DATA_PN']) ? "None" : $aDataRow['CUST_DATA_PN'])."</p></div>
 					</div>
 					<div>
 						<div><b><p>Stable number</p></b></div>
-						<div><p>%s</p></div>
+						<div><p>".(empty($aDataRow['CUST_DATA_SN']) ? "None" : $aDataRow['CUST_DATA_SN'])."</p></div>
 					</div>
 					<div>
 						<div><b><p>VAT</p></b></div>
-						<div><p>%s</p></div>
+						<div><p>".(empty($aDataRow['CUST_DATA_VAT']) ? "None" : $aDataRow['CUST_DATA_VAT'])."</p></div>
 					</div>
 					<div>
 						<div><b><p>Address</p></b></div>
-						<div><p>%s</p></div>
+						<div><p>".(empty($aDataRow['CUST_DATA_ADDR']) ? "None" : $aDataRow['CUST_DATA_ADDR'])."</p></div>
 					</div>
 					<div>
 						<div><b><p>Note</p></b></div>
-						<div><p>%s</p></div></div>
+						<div><p>".(empty($aDataRow['CUST_DATA_NOTE']) ? "None" : $aDataRow['CUST_DATA_NOTE'])."</p></div></div>
 					</div>
 					<div>
-						<input type='hidden' name='CustIndex' value='%s'>
-						<input type='submit' value='Delete' formaction='.?MenuIndex=%d&Module=%d'>
-						<input type='submit' value='Edit' formaction='.?MenuIndex=%d&Module=%d'>
+						<input type='hidden' name='CustIndex' value='".$aDataRow['CUST_ID']."'>
+						<input type='submit' value='Delete' formaction='.?MenuIndex=".$GLOBALS['MENU']['CUSTOMER']['INDEX']."&Module=".$GLOBALS['MODULE']['DELETE']."'>
+						<input type='submit' value='Edit' formaction='.?MenuIndex=".$GLOBALS['MENU']['CUSTOMER']['INDEX']."&Module=".$GLOBALS['MODULE']['EDIT']."'>
 					</div>
 				</form>
-			</div>",
-			$aDataRow['CUST_DATA_NAME'],
-			$aDataRow['CUST_DATA_SURNAME'],
-			(empty($aDataRow['CUST_DATA_EMAIL']) ? "None" : $aDataRow['CUST_DATA_EMAIL']),
-			(empty($aDataRow['CUST_DATA_PN']) ? "None" : $aDataRow['CUST_DATA_PN']),
-			(empty($aDataRow['CUST_DATA_SN']) ? "None" : $aDataRow['CUST_DATA_SN']),
-			(empty($aDataRow['CUST_DATA_VAT']) ? "None" : $aDataRow['CUST_DATA_VAT']),
-			(empty($aDataRow['CUST_DATA_ADDR']) ? "None" : $aDataRow['CUST_DATA_ADDR']),
-			(empty($aDataRow['CUST_DATA_NOTE']) ? "None" : $aDataRow['CUST_DATA_NOTE']),
-			$aDataRow['CUST_ID'],
-			$GLOBALS['MENU']['CUSTOMER']['INDEX'],
-			$GLOBALS['MODULE']['DELETE'],
-			$GLOBALS['MENU']['CUSTOMER']['INDEX'],
-			$GLOBALS['MODULE']['EDIT']);
+			</div>";
 		}
 	}
+
+	print($sCustomerHTML);
 }
 ?>

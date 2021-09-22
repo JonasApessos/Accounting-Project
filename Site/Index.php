@@ -37,6 +37,8 @@ require_once("Data/ConnData/DBSessionToken.php");
 
 <?php
 
+$sIndexHtml = "";
+
 if(isset($_GET['Login']))
 {
     require_once("../MedaLib/Function/Tool/RangeCheck.php");
@@ -44,7 +46,7 @@ if(isset($_GET['Login']))
     require_once("Output/SpecificRetriever/EmployeeSpecificRetriever.php");
     require_once("../MedaLib/Function/Filter/SecurityFilter/SecurityFormFilter.php");
 
-    $rProcessFileHandle = new ME_CFileHandle($GLOBALS['DEFAULT_LOG_FILE'], $GLOBALS['DEFAULT_LOG_PATH'], "a");
+    $rProcessFileHandle = new ME_CFileHandle($GLOBALS['DEFAULT_LOG_FILE'], $GLOBALS['DEFAULT_LOG_PATH'], "a+");
     $rProcessLogHandle = new ME_CLogHandle($rProcessFileHandle, "LoginProcess", __FILE__);
 
     $rConn = new ME_CDBConnManager($rProcessLogHandle, $_SESSION['DBName'], $_SESSION['ServerDNS'], $_SESSION['DBUsername'], $_SESSION['DBPassword'], $_SESSION['DBPrefix']);
@@ -57,7 +59,7 @@ if(isset($_GET['Login']))
 }
 else if (isset($_GET['Logout']))
 {
-    $rProcessFileHandle = new ME_CFileHandle($GLOBALS['DEFAULT_LOG_FILE'], $GLOBALS['DEFAULT_LOG_PATH'], "a");
+    $rProcessFileHandle = new ME_CFileHandle($GLOBALS['DEFAULT_LOG_FILE'], $GLOBALS['DEFAULT_LOG_PATH'], "a+");
     $rProcessLogHandle = new ME_CLogHandle($rProcessFileHandle, "LogoutProcess", __FILE__);
 
     ProLogout($rProcessLogHandle);
@@ -70,6 +72,7 @@ else
 //Flow root
 if(isset($_GET['MenuIndex']))
 {
+    require_once("Function/AccessLevelCheck.php");
     require_once("../MedaLib/Class/Manager/DBConnManager.php");
     require_once("../MedaLib/Function/Filter/DataFilter/MultyCheckDataTypeFilter/MultyCheckDataEmptyType.php");
     require_once("../MedaLib/Function/Filter/SecurityFilter/SecurityFilter.php");
@@ -82,9 +85,21 @@ if(isset($_GET['MenuIndex']))
             break;
 
         //Company
+        case $GLOBALS['MENU']['HOME']["INDEX"]:
+            $sIndexHtml = "<title>".$GLOBALS['MENU']['HOME']['TITLE']."</title>
+            <script src='../js/IncomeReport.js'></script>
+            <script src='../js/Canvas.js'></script>";
+
+            //This is to minimize the search and load time as well as the allocation and definition of functions and variables that are not needed for the rest of the script to work.
+            require_once("../MedaLib/Function/Filter/DataFilter/MultyCheckDataTypeFilter/MultyCheckDataNumericType.php");
+            require_once("../MedaLib/Function/SQL/SQLStatementExec.php");
+            require_once("../MedaLib/Function/Generator/QuerySearchConstructor.php");
+            require_once("../MedaLib/Function/Tool/RangeCheck.php");
+            break;
+
+        //Company
         case $GLOBALS['MENU']['COMPANY']["INDEX"]:
-            printf("<title>%s</title>", $GLOBALS['MENU']['COMPANY']['TITLE']);
-            require_once("Function/AccessLevelCheck.php");
+            $sIndexHtml = "<title>".$GLOBALS['MENU']['COMPANY']['TITLE']."</title>";
 
             //This is to minimize the search and load time as well as the allocation and definition of functions and variables that are not needed for the rest of the script to work.
             require_once("../MedaLib/Function/Filter/DataFilter/MultyCheckDataTypeFilter/MultyCheckDataNumericType.php");
@@ -95,73 +110,76 @@ if(isset($_GET['MenuIndex']))
 
         //Country
         case $GLOBALS['MENU']['COUNTRY']["INDEX"]:
-            printf("<title>%s</title>", $GLOBALS['MENU']['COUNTRY']['TITLE']);
-            require_once("Function/AccessLevelCheck.php");
+            $sIndexHtml = "<title>".$GLOBALS['MENU']['COUNTRY']['TITLE']."</title>";
+
             require_once("../MedaLib/Function/Generator/QuerySearchConstructor.php");
             require_once("../MedaLib/Function/Tool/RangeCheck.php");
             break;
 
         //Employee
         case $GLOBALS['MENU']['EMPLOYEE']["INDEX"]:
-            printf("<title>%s</title>", $GLOBALS['MENU']['EMPLOYEE']['TITLE']);
-            require_once("Function/AccessLevelCheck.php");
+            $sIndexHtml = "<title>".$GLOBALS['MENU']['EMPLOYEE']['TITLE']."</title>";
+
             require_once("../MedaLib/Function/Generator/QuerySearchConstructor.php");
             require_once("../MedaLib/Function/Tool/RangeCheck.php");
             break;
 
         //Employee Position
         case $GLOBALS['MENU']['EMPLOYEE_POSITION']["INDEX"]:
-            printf("<title>%s</title>", $GLOBALS['MENU']['EMPLOYEE_POSITION']['TITLE']);
-            require_once("Function/AccessLevelCheck.php");
+            $sIndexHtml = "<title>".$GLOBALS['MENU']['EMPLOYEE_POSITION']['TITLE']."</title>";
+
             require_once("../MedaLib/Function/Generator/QuerySearchConstructor.php");
             require_once("../MedaLib/Function/Tool/RangeCheck.php");
             break;
 
         //Job
         case $GLOBALS['MENU']['JOB']["INDEX"]:
-            printf("<title>%s</title>", $GLOBALS['MENU']['JOB']['TITLE']);
-            require_once("Function/AccessLevelCheck.php");
+            $sIndexHtml = "<title>".$GLOBALS['MENU']['JOB']['TITLE']."</title>";
+
             require_once("../MedaLib/Function/Generator/QuerySearchConstructor.php");
             require_once("../MedaLib/Function/Tool/RangeCheck.php");
             break;
 
         //Shareholder
         case $GLOBALS['MENU']['SHAREHOLDER']["INDEX"]:
-            printf("<title>%s</title>", $GLOBALS['MENU']['SHAREHOLDER']['TITLE']);
-            require_once("Function/AccessLevelCheck.php");
+            $sIndexHtml = "<title>".$GLOBALS['MENU']['SHAREHOLDER']['TITLE']."</title>";
+
             require_once("../MedaLib/Function/Generator/QuerySearchConstructor.php");
             require_once("../MedaLib/Function/Tool/RangeCheck.php");
             break;
 
         //Customer
         case $GLOBALS['MENU']['CUSTOMER']["INDEX"]:
-            printf("<title>%s</title>", $GLOBALS['MENU']['CUSTOMER']['TITLE']);
-            require_once("Function/AccessLevelCheck.php");
+            $sIndexHtml = "<title>".$GLOBALS['MENU']['CUSTOMER']['TITLE']."</title>";
+
             require_once("../MedaLib/Function/Generator/QuerySearchConstructor.php");
             require_once("../MedaLib/Function/Tool/RangeCheck.php");
             break;
 
         //County
         case $GLOBALS['MENU']['COUNTY']["INDEX"]:
-            printf("<title>%s</title>", $GLOBALS['MENU']['COUNTY']['TITLE']);
-            require_once("Function/AccessLevelCheck.php");
+            $sIndexHtml = "<title>".$GLOBALS['MENU']['COUNTY']['TITLE']."</title>";
+
             require_once("../MedaLib/Function/Generator/QuerySearchConstructor.php");
             require_once("../MedaLib/Function/Tool/RangeCheck.php");
             break;
 
         default:
-            print("<title>Home</title>
+            $sIndexHtml = "<title>".$GLOBALS['MENU']['HOME']['TITLE']."</title>
             <script src='../js/IncomeReport.js'></script>
-            <script src='../js/Canvas.js'></script>");
+            <script src='../js/Canvas.js'></script>";
             break;
     }
 }
 else
 {
-    print("<title>Home</title>
+    $sIndexHtml = "<title>".$GLOBALS['MENU']['HOME']['TITLE']."</title>
     <script src='../js/IncomeReport.js'></script>
-    <script src='../js/Canvas.js'></script>");
+    <script src='../js/Canvas.js'></script>";
 }
+
+print($sIndexHtml);
+
 ?>
 
 <script src='../js/Main.js'></script>

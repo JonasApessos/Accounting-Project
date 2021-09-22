@@ -1,5 +1,5 @@
 
-<div class='content'>
+<main class='content'>
 <?php
 //If $_GET['MenuIndex'] is set
 if(isset($_GET["MenuIndex"]))
@@ -59,4 +59,4 @@ else
 	require_once("Struct/Module/Home.php");
 ?>
 
-</div>
+</main>

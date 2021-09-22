@@ -1,5 +1,5 @@
 <?php
-$rErrorProcFileHandle = new ME_CFileHandle($GLOBALS['DEFAULT_LOG_FILE'], $GLOBALS['DEFAULT_LOG_PATH'], "a");
+$rErrorProcFileHandle = new ME_CFileHandle($GLOBALS['DEFAULT_LOG_FILE'], $GLOBALS['DEFAULT_LOG_PATH'], "a+");
 
 $rErrorProcLogHandle = new ME_CLogHandle($rErrorProcFileHandle, "LoginProcess", __FILE__);
 
@@ -7,63 +7,70 @@ $rConn = new ME_CDBConnManager($rErrorProcLogHandle, $_SESSION['DBName'], $_SESS
 
 function HTMLHeader(ME_CLogHandle &$InrLogHandle)
 {
-	//Header Box
-	print("
-	<div class='header'>
-		<div>
-			<div class='header-title'>");
+	$sHeaderTitle = "";
 
 	if(isset($_GET['MenuIndex']))
 	{
 		switch($_GET['MenuIndex'])
 		{
+			case $GLOBALS['MENU']['HOME']['INDEX']:
+				$sHeaderTitle = $GLOBALS['MENU']['HOME']['TITLE'];
+				break;
+
 			case $GLOBALS['MENU']['COMPANY']['INDEX']:
-				printf("<h1>%s</h1>", $GLOBALS['MENU']['COMPANY']['TITLE']);
+				$sHeaderTitle = $GLOBALS['MENU']['COMPANY']['TITLE'];
 				break;
 
 			case $GLOBALS['MENU']['COUNTRY']['INDEX']:
-				printf("<h1>%s</h1>", $GLOBALS['MENU']['COUNTRY']['TITLE']);
+				$sHeaderTitle = $GLOBALS['MENU']['COUNTRY']['TITLE'];
 				break;
 
 			case $GLOBALS['MENU']['EMPLOYEE']['INDEX']:
-				printf("<h1>%s</h1>", $GLOBALS['MENU']['EMPLOYEE']['TITLE']);
+				$sHeaderTitle = $GLOBALS['MENU']['EMPLOYEE']['TITLE'];
 				break;
 
 			case $GLOBALS['MENU']['EMPLOYEE_POSITION']['INDEX']:
-				printf("<h1>%s</h1>", $GLOBALS['MENU']['EMPLOYEE_POSITION']['TITLE']);
+				$sHeaderTitle = $GLOBALS['MENU']['EMPLOYEE_POSITION']['TITLE'];
 				break;
 
 			case $GLOBALS['MENU']['JOB']['INDEX']:
-				printf("<h1>%s</h1>", $GLOBALS['MENU']['JOB']['TITLE']);
+				$sHeaderTitle = $GLOBALS['MENU']['JOB']['TITLE'];
 				break;
 
 			case $GLOBALS['MENU']['SHAREHOLDER']['INDEX']:
-				printf("<h1>%s</h1>", $GLOBALS['MENU']['SHAREHOLDER']['TITLE']);
+				$sHeaderTitle = $GLOBALS['MENU']['SHAREHOLDER']['TITLE'];
 				break;
 
 			case $GLOBALS['MENU']['CUSTOMER']['INDEX']:
-				printf("<h1>%s</h1>", $GLOBALS['MENU']['CUSTOMER']['TITLE']);
+				$sHeaderTitle = $GLOBALS['MENU']['CUSTOMER']['TITLE'];
 				break;
 
 			case $GLOBALS['MENU']['COUNTY']['INDEX']:
-				printf("<h1>%s</h1>", $GLOBALS['MENU']['COUNTY']['TITLE']);
+				$sHeaderTitle = $GLOBALS['MENU']['COUNTY']['TITLE'];
 				break;
 
 			default:
-				printf("<h1>Home</h1>");
+				$sHeaderTitle = $GLOBALS['MENU']['HOME']['TITLE'];
 				break;
 		}
 	}
 	else
-		printf("<h1>Home</h1>");
+		$sHeaderTitle = $GLOBALS['MENU']['HOME']['TITLE'];
 
-	print("	</div>");
 
-	HTMLHeaderLogin($InrLogHandle);
+	//Header Box
+	printf("
+	<header class='header'>
+		<div>
+			<div class='header-title'>
+				<h1>%s</h1>
+			</div>", $sHeaderTitle);
+
+			HTMLHeaderLogin($InrLogHandle);
 
 	print("
 		</div>
-	</div>");
+	</header>");
 }
 
 function HTMLHeaderLogin(ME_CLogHandle &$InrLogHandle)

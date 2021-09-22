@@ -23,6 +23,8 @@ function HTMLEmployeeOverview(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLo
 
 function HTMLEmployeeOverviewDataBlock(mysqli_result &$InrResult, ME_CLogHandle &$InrLogHandle, int $IniUserAccess) : void
 {
+	$sEmployeeHTML = "";
+
 	$sSearchSelectStructName = "SearchType";
     $sHTMLGeneratedSelectStructure = "";
     $sSearchTypeSelected = isset($_GET[$sSearchSelectStructName]) ? $_GET[$sSearchSelectStructName] : "";
@@ -30,87 +32,70 @@ function HTMLEmployeeOverviewDataBlock(mysqli_result &$InrResult, ME_CLogHandle 
     HTMLGenerateSelectStructure($sHTMLGeneratedSelectStructure, $sSearchSelectStructName, $GLOBALS['CUSTOMER_SEARCH_TYPE'], $sSearchTypeSelected, "QueryDataType", "onchange", "EmployeeQueryDataType()");
 	
 	//The toolbar for the buttons (tools)
-	printf("
+	$sEmployeeHTML .= "
 	<div class='content-tool-bar'>
-		<a href='.?MenuIndex=%d&Module=%d'>
+		<a href='.?MenuIndex=".$GLOBALS['MENU']['EMPLOYEE']['INDEX']."&Module=".$GLOBALS['MODULE']['ADD']."'>
 			<div class='button-left'><h5>ADD</h5></div>
 		</a>
 		<form action='.' method='get'>
-			<input type='hidden' name='MenuIndex' value='%d'><label>Search by%s</label>
-			<label>Query <input id='QueryInput' type='text' name='SearchQuery' value='%s'></label>
+			<input type='hidden' name='MenuIndex' value='".$GLOBALS['MENU']['EMPLOYEE']['INDEX']."'><label>Search by ".$sHTMLGeneratedSelectStructure."</label>
+			<label>Query <input id='QueryInput' type='text' name='SearchQuery' value='".((isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "")."'></label>
 			<button>submit</button>
 		</form>
-	</div>",
-	$GLOBALS['MENU']['EMPLOYEE']['INDEX'],
-	$GLOBALS['MODULE']['ADD'],
-	$GLOBALS['MENU']['EMPLOYEE']['INDEX'],
-	$sHTMLGeneratedSelectStructure,
-	(isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "");
+	</div>";
 
 	foreach($InrResult->fetch_all(MYSQLI_ASSOC) as $aDataRow)
 	{
 		if(((int) $aDataRow['EMP_DATA_ACCESS']) >= $IniUserAccess)
 		{
-			printf("
+			$sEmployeeHTML .= "
 			<div class='data-block'>
 				<form method='POST'>
-					<div><h5>%s %s</h5></div>
+					<div><h5>".$aDataRow['EMP_DATA_NAME']." ".$aDataRow['EMP_DATA_SURNAME']."</h5></div>
 					<div>
 						<div><b><p>Email</p></b></div>
-						<div><p>%s</p></div>
+						<div><p>".$aDataRow['EMP_DATA_EMAIL']."</p></div>
 					</div>
 					<div>
 						<div><b><p>Salary</p></b></div>
-						<div><p>%s</p></div>
-					</div>",
-			$aDataRow['EMP_DATA_NAME'],
-			$aDataRow['EMP_DATA_SURNAME'],
-			$aDataRow['EMP_DATA_EMAIL'],
-			$aDataRow['EMP_DATA_SALARY']);
+						<div><p>".number_format($aDataRow['EMP_DATA_SALARY'], 2)." ".$GLOBALS["CURRENCY_SYMBOL"]."</p></div>
+					</div>";
 
 			//If the user has no access to this layer of data then ghost it
 			if(((int) $aDataRow['EMP_POS_ACCESS']) >= $IniUserAccess)
 			{
 			    //Data Row - employee title
-				printf("
+				$sEmployeeHTML .= "
 					<div>
 						<div><b><p>Title</p></b></div>
-						<div><p>%s</p></div>
-					</div>",
-					$aDataRow['EMP_POS_TITLE']);
+						<div><p>".$aDataRow['EMP_POS_TITLE']."</p></div>
+					</div>";
 			}
 
 			//Data Row - employee birth day
-			printf("
+			$sEmployeeHTML .= "
 					<div>
 						<div><b><p>Birth Day</p></b></div>
-						<div><p>%s</p></div>
+						<div><p>".date("d/m/Y", strtotime($aDataRow['EMP_DATA_BDAY']))."</p></div>
 					</div>
 					<div>
 						<div><b><p>Phone Number</p></b></div>
-						<div><p>%s</p></div>
+						<div><p>".$aDataRow['EMP_DATA_PN']."</p></div>
 					</div>
 					<div>
 						<div><b><p>Stable Number</p></b></div>
-						<div><p>%s</p></div>
+						<div><p>".$aDataRow['EMP_DATA_SN']."</p></div>
 					</div>
 					<div>
-						<input type='hidden' name='EmpIndex' value='%d'>
-						<input type='submit' value='Delete' formaction='.?MenuIndex=%d&Module=%d'>
-						<input type='submit' value='Edit' formaction='.?MenuIndex=%d&Module=%d'>
+						<input type='hidden' name='EmpIndex' value='".$aDataRow['EMP_ID']."'>
+						<input type='submit' value='Delete' formaction='.?MenuIndex=".$GLOBALS['MENU']['EMPLOYEE']['INDEX']."&Module=".$GLOBALS['MODULE']['DELETE']."'>
+						<input type='submit' value='Edit' formaction='.?MenuIndex=".$GLOBALS['MENU']['EMPLOYEE']['INDEX']."&Module=".$GLOBALS['MODULE']['EDIT']."'>
 					</div>
 				</form>
-			</div>",
-			$aDataRow['EMP_DATA_BDAY'],
-			$aDataRow['EMP_DATA_PN'],
-			$aDataRow['EMP_DATA_SN'],
-			$aDataRow['EMP_ID'],
-			$GLOBALS['MENU']['EMPLOYEE']['INDEX'],
-			$GLOBALS['MODULE']['DELETE'],
-			$GLOBALS['MENU']['EMPLOYEE']['INDEX'],
-			$GLOBALS['MODULE']['EDIT']);
-
+			</div>";
 		}
 	}
+
+	print($sEmployeeHTML);
 }
 ?>

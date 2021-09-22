@@ -18,6 +18,21 @@
 	margin:1%;
 }
 
+.data-block p
+{
+	color:black;
+}
+
+.positive p
+{
+	color:#00AA00;
+}
+
+.negative > p
+{
+	color:#AA0000;
+}
+
 .data-block form div
 {
 	width:100%;
@@ -135,7 +150,6 @@
 .data-block form div > div > p
 {
 	text-align:center;
-	color:black;
 	font-size:18px;
 }
 
@@ -147,6 +161,11 @@
 	text-align:left;
 	margin:0%;
 	padding:2%;
+}
+
+.data-block form div > div:first-child p
+{
+	color:white;
 }
 
 .data-block form div div > div:first-child

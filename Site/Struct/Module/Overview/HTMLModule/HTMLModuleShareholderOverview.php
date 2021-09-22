@@ -21,7 +21,9 @@ function HTMLShareholderOverview(ME_CDBConnManager &$InrConn, ME_CLogHandle &$In
 }
 
 function HTMLShareholderDataBlock(mysqli_result &$InrResult, ME_CLogHandle &$InrLogHandle, int $IniUserAccess) : void
-{ 
+{
+	$sShareholderHTML = "";
+
 	$sSearchSelectStructName = "SearchType";
     $sHTMLGeneratedSelectStructure = "";
     $sSearchTypeSelected = isset($_GET[$sSearchSelectStructName]) ? $_GET[$sSearchSelectStructName] : "";
@@ -29,63 +31,49 @@ function HTMLShareholderDataBlock(mysqli_result &$InrResult, ME_CLogHandle &$Inr
     HTMLGenerateSelectStructure($sHTMLGeneratedSelectStructure, $sSearchSelectStructName, $GLOBALS['EMPLOYEE_POSITION_SEARCH_TYPE'], $sSearchTypeSelected);
 
 	//The toolbar for the buttons (tools)
-	printf("
+	$sShareholderHTML .= "
 	<div class='content-tool-bar'>
-		<a href='.?MenuIndex=%d&Module=%d'>
+		<a href='.?MenuIndex=".$GLOBALS['MENU']['SHAREHOLDER']['INDEX']."&Module=".$GLOBALS['MODULE']['ADD']."'>
 			<div class='button-left'><h5>ADD</h5></div>
 		</a>
 		<form action='.' method='get'>
-			<input type='hidden' name='MenuIndex' value='%d'><label>Search by%s</label>
-			<label>Query</label><input type='text' name='SearchQuery' value='%s'>
+			<input type='hidden' name='MenuIndex' value='".$GLOBALS['MENU']['SHAREHOLDER']['INDEX']."'><label>Search by ".$sHTMLGeneratedSelectStructure."</label>
+			<label>Query</label><input type='text' name='SearchQuery' value='".((isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "")."'>
 			<button>submit</button>
 		</form>
-	</div>",
-	$GLOBALS['MENU']['SHAREHOLDER']['INDEX'],
-	$GLOBALS['MODULE']['ADD'],
-	$GLOBALS['MENU']['SHAREHOLDER']['INDEX'],
-	$sHTMLGeneratedSelectStructure,
-	(isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "");
+	</div>";
 
 	foreach($InrResult->fetch_all(MYSQLI_ASSOC) as $aDataRow)
 	{
-		printf("
+		$sShareholderHTML .= "
 		<div class='data-block'>
 			<form method='POST'>
-				<div><h5>%s %s</h5></div>
+				<div><h5>".$aDataRow['EMP_DATA_NAME']." ".$aDataRow['EMP_DATA_SURNAME']."</h5></div>
 				<div>
 					<div><b><p>Salary</p></b></div>
-					<div><p>%f</p></div>
+					<div><p>".number_format(round($aDataRow['EMP_DATA_SALARY'], 3), 2)." ".$GLOBALS["CURRENCY_SYMBOL"]."</p></div>
 				</div>
 				<div>
 					<div><b><p>Birth Date</p></b></div>
-					<div><p>%s</p></div>
+					<div><p>".date("d/m/Y", strtotime($aDataRow['EMP_DATA_BDAY']))."</p></div>
 				</div>
 				<div>
 					<div><b><p>Email</p></b></div>
-					<div><p>%s</p></div>
+					<div><p>".$aDataRow['EMP_DATA_EMAIL']."</p></div>
 				</div>
 				<div>
 					<div><b><p>Title</p></b></div>
-					<div><p>%s</p></div>
+					<div><p>".$aDataRow['EMP_POS_TITLE']."</p></div>
 				</div>
 				<div>
-					<input type='hidden' name='ShareIndex' value='%d'>
-					<input type='submit' value='Delete' formaction='.?MenuIndex=%d&Module=%d'>
-					<input type='submit' value='Edit' formaction='.?MenuIndex=%d&Module=%d'>
+					<input type='hidden' name='ShareIndex' value='".$aDataRow['SHARE_ID']."'>
+					<input type='submit' value='Delete' formaction='.?MenuIndex=".$GLOBALS['MENU']['SHAREHOLDER']['INDEX']."&Module=".$GLOBALS['MODULE']['DELETE']."'>
+					<input type='submit' value='Edit' formaction='.?MenuIndex=".$GLOBALS['MENU']['SHAREHOLDER']['INDEX']."&Module=".$GLOBALS['MODULE']['EDIT']."'>
 				</div>
 			</form>
-		</div>",
-		$aDataRow['EMP_DATA_NAME'],
-		$aDataRow['EMP_DATA_SURNAME'],
-		$aDataRow['EMP_DATA_SALARY'],
-		$aDataRow['EMP_DATA_BDAY'],
-		$aDataRow['EMP_DATA_EMAIL'],
-		$aDataRow['EMP_POS_TITLE'],
-		$aDataRow['SHARE_ID'],
-		$GLOBALS['MENU']['SHAREHOLDER']['INDEX'],
-		$GLOBALS['MODULE']['DELETE'],
-		$GLOBALS['MENU']['SHAREHOLDER']['INDEX'],
-		$GLOBALS['MODULE']['EDIT']);
+		</div>";
 	}
+
+	print($sShareholderHTML);
 }
 ?>

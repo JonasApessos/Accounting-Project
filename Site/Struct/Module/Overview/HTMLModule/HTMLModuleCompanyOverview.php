@@ -24,6 +24,7 @@ function HTMLCompanyOverview(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLog
 
 function HTMLCompanyDataBlock(mysqli_result &$InrResult, ME_CLogHandle &$InrLogHandle, int $IniUserAccess) : void
 {
+    $sCompHtml = "";
 
     $sSearchSelectStructName = "SearchType";
     $sHTMLGeneratedSelectStructure = "";
@@ -32,97 +33,83 @@ function HTMLCompanyDataBlock(mysqli_result &$InrResult, ME_CLogHandle &$InrLogH
     HTMLGenerateSelectStructure($sHTMLGeneratedSelectStructure, $sSearchSelectStructName, $GLOBALS['COMPANY_SEARCH_TYPE'], $sSearchTypeSelected, "QueryDataType", "onchange", "CompanyQueryDataType()");
 
     //The toolbar for the buttons (tools)
-    printf("
+    $sCompHtml .= "
     <div class='content-tool-bar'>
-        <a href='.?MenuIndex=%d&Module=%d'>
+        <a href='.?MenuIndex=".$GLOBALS['MENU']['COMPANY']['INDEX']."&Module=".$GLOBALS['MODULE']['ADD']."'>
             <div class='button-left'><h5>ADD</h5></div>
         </a>
         <form action='.' method='get'>
-            <input type='hidden' name='MenuIndex' value='%d'><label>Search by</label>%s
-            <label>Query</label><input type='text' id='QueryInput' name='SearchQuery' value='%s'>
+            <input type='hidden' name='MenuIndex' value='".$GLOBALS['MENU']['COMPANY']['INDEX']."'><label>Search by</label>".$sHTMLGeneratedSelectStructure."
+            <label>Query</label><input type='text' id='QueryInput' name='SearchQuery' value='".((isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "")."'>
             <button>submit</button>
         </form>
-    </div>
-    ",
-    $GLOBALS['MENU']['COMPANY']['INDEX'],
-    $GLOBALS['MODULE']['ADD'],
-    $GLOBALS['MENU']['COMPANY']['INDEX'],
-    $sHTMLGeneratedSelectStructure,
-    (isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "");
+    </div>";
 
     foreach($InrResult->fetch_all(MYSQLI_ASSOC) as $aDataRow)
     {
         if(((int) $aDataRow['COMP_DATA_ACCESS']) >= $IniUserAccess)
         {
             //Data Row
-            printf("
+            $sCompHtml .= "
             <div class='data-block'>
                 <form method='POST'>
-                    <div><h5>%s</h5></div>
+                    <div><h5>".$aDataRow['COMP_DATA_TITLE']."</h5></div>
                     <div>
                         <div><b><p>Creation Date</p></b></div>
-                        <div><p>%s</p></div>
-                    </div>",
-                    $aDataRow['COMP_DATA_TITLE'],
-                    $aDataRow['COMP_DATA_DATE']);
+                        <div><p>".date("d/m/Y", strtotime($aDataRow['COMP_DATA_DATE']))."</p></div>
+                    </div>";
 
 
             //Data Row - country title
             if((((int) $aDataRow['COUN_DATA_ACCESS']) >= $IniUserAccess))
             {
-                printf("
+                $sCompHtml .= "
                     <div>
                         <div><b><p>Country</p></b></div>
-                        <div><p>%s</p></div>
-                    </div>",
-                    $aDataRow['COUN_DATA_TITLE']);
+                        <div><p>".$aDataRow['COUN_DATA_TITLE']."</p></div>
+                    </div>";
             }
 
             if(((int) $aDataRow['COU_DATA_ACCESS']) >= $IniUserAccess)
             {
-                printf("
+                $sCompHtml .= "
                     <div>
                         <div><b><p>County</p></b></div>
-                        <div><p>%s</p></div>
+                        <div><p>".date("d/m/Y", strtotime($aDataRow['COU_DATA_TITLE']))."</p></div>
                     </div>
                     <div>
                         <div><b><p>Tax</p></b></div>
-                        <div><p>%s</p></div>
+                        <div><p>".number_format($aDataRow['COU_DATA_TAX'], 2)."%</p></div>
                     </div>
                     <div>
                         <div><b><p>Interest Rate</p></b></div>
-                        <div><p>%s</p></div>
-                    </div>",
-                    $aDataRow['COU_DATA_TITLE'],
-                    $aDataRow['COU_DATA_TAX'],
-                    $aDataRow['COU_DATA_IR']);
+                        <div><p>".number_format($aDataRow['COU_DATA_IR'], 2)."%</p></div>
+                    </div>";
             }
 
             //Button list for specific Data Row
-            printf("
+            $sCompHtml .= "
                     <div>
-                        <input type='hidden' name='CompIndex' value='%d'>
-                        <input type='submit' value='Delete' formaction='.?MenuIndex=%d&Module=%d'>
-                        <input type='submit' value='Edit' formaction='.?MenuIndex=%d&Module=%d'>
+                        <input type='hidden' name='CompIndex' value='".$aDataRow['COMP_ID']."'>
+                        <input type='submit' value='Delete' formaction='.?MenuIndex=".$GLOBALS['MENU']['COMPANY']['INDEX']."&Module=".$GLOBALS['MODULE']['DELETE']."'>
+                        <input type='submit' value='Edit' formaction='.?MenuIndex=".$GLOBALS['MENU']['COMPANY']['INDEX']."&Module=".$GLOBALS['MODULE']['EDIT']."'>
                     </div>
                 </form>
-            </div> ",
-            $aDataRow['COMP_ID'],
-            $GLOBALS['MENU']['COMPANY']['INDEX'],
-            $GLOBALS['MODULE']['DELETE'],
-            $GLOBALS['MENU']['COMPANY']['INDEX'],
-            $GLOBALS['MODULE']['EDIT']);
+            </div> ";
         }
         else
             $InrLogHandle->AddLogMessage("Access was denied, not enought privilege to retrieve data from query", __FILE__, __FUNCTION__, __LINE__);
+
+        
     }
 
-    printf("
+    $sCompHtml .= "
         <div>
             <form action='.' method='get'>
-                <input type='button' name='PageIndex' value='%d'><label>page</label>
+                <input type='button' name='PageIndex' value='1'><label>page</label>
             </form>
-        </div>",
-        1);
+        </div>";
+
+    print($sCompHtml);
 }
 ?>

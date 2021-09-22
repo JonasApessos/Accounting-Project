@@ -1,51 +1,91 @@
 <?php
 class ME_CFileHandle
 {
+	//Handle instances
+	public static $iHandleNum = 0;
+
+	//File handle ID
+	private $iHandleID = 0;
+
 	//Stream source file
-	private $rLogFile = 0;
+	private $rFile = 0;
 
 	//File name
-	private $sLogFileName = "";
+	private $sFileName = "";
 
 	//File path
-	private $sLogFilePath = "";
+	private $sFilePath = "";
 
 	//File mode
-	private $sLogFileMode = "";
+	private $sFileMode = "";
+
+	//Default values
+	private $sDefaultFilePath = "Logs";
+	private $sDefaultFileName = "FileHandleError.txt";
+	private $sDefaultFileMode = "a+";
 
 	//open file method
 	protected function OpenFile() : void
 	{
 		try
 		{
-			//check if mode is r or r+, those mode do not create automatecally a file.
-			if(($this->sLogFileMode == "r") || ($this->sLogFileMode == "r+"))
+			switch($this->sFileMode)
 			{
-				if(file_exists(($this->sLogFilePath . $this->sLogFileName)))
-				{
-					$this->rLogFile = fopen(($this->sLogFilePath . $this->sLogFileName), $this->sLogFileMode);
+				case "r":
+				case "r+":
+				case "a":
+					{
+						if(file_exists(($this->sFilePath . $this->sFileName)))
+						{
+							$this->rFile = fopen(($this->sFilePath . $this->sFileName), $this->sFileMode);
 
-					if(empty($this->rLogFile))
-						throw new Exception("Failed to open the file");
-				}
-				else
-					throw new Exception("File does not exists");
-			}
-			else
-			{
-				$this->rLogFile = fopen(($this->sLogFilePath . $this->sLogFileName), $this->sLogFileMode);
+							if(empty($this->rFile))
+								throw new Exception("Failed to open the file - handle ID:" . strval($this->iHandleID));
+						}
+						else
+							throw new Exception("File does not exists - handle ID:" . strval($this->iHandleID));
 
-				if(!$this->rLogFile)
-					throw new Exception("Failed to open the file");
+						break;
+					}
+
+				case "a+":
+				case "w":
+				case "w+":
+				case "x":
+					{
+						if(is_dir($this->sFilePath))
+						{
+							$this->rFile = fopen(($this->sFilePath . $this->sFileName), $this->sFileMode);
+
+							
+
+							if(!$this->rFile)
+								throw new Exception("Failed to open the file - handle ID:" . strval($this->iHandleID));
+						}
+						else
+							throw new Exception("No directory found - handle ID:" . strval($this->iHandleID));
+
+						break;
+					}
+
+				default:
+					{
+						Throw new Exception("File mode is not correct");
+					}
+
+				
 			}
 		}
 		catch(Throwable $tExcept)
 		{
-			$rLogSystemErrorFile = fopen("Logs/FileHandleError.txt", "a");
+			if(!is_dir($this->sDefaultFilePath))
+				mkdir($this->sDefaultFilePath);
+
+			$rLogSystemErrorFile = fopen($this->sDefaultFilePath . "/" . $this->sDefaultFileName, $this->sDefaultFileMode);
 
 			if(!empty($rLogSystemErrorFile))
 			{
-				fwrite($rLogSystemErrorFile, "FileHandleInternalError->File: " . $tExcept->getFile(). " Line: " . $tExcept->getLine() . " Message: " . $tExcept->getMessage() . ", Variabale Resource: ".$this->rLogFile."\n");
+				fwrite($rLogSystemErrorFile, "FileHandleInternalError->File: " . $tExcept->getFile(). " Line: " . $tExcept->getLine() . " Message: " . $tExcept->getMessage() . ", Resource: ".$this->rFile."\n");
 
 				fclose($rLogSystemErrorFile);
 			}
@@ -55,9 +95,11 @@ class ME_CFileHandle
 	//constructor method
 	public function __construct(string $InsFileName, string $InsFilePath, string $InsFileMode)
 	{
-		$this->sLogFileName = $InsFileName;
-		$this->sLogFilePath = $InsFilePath . "/";
-		$this->sLogFileMode = $InsFileMode;
+		$this->sFileName = $InsFileName;
+		$this->sFilePath = $InsFilePath . "/";
+		$this->sFileMode = $InsFileMode;
+
+		$this->iHandleID = ++ME_CFileHandle::$iHandleNum;
 
 		$this->OpenFile();
 	}
@@ -72,24 +114,29 @@ class ME_CFileHandle
 		}
 		catch(Throwable $tExcept)
 		{
-			$rLogSystemErrorFile = fopen("Logs/FileHandleError.txt", "a");
+			if(!is_dir($this->sDefaultFilePath))
+				mkdir($this->sDefaultFilePath);
+
+			$rLogSystemErrorFile = fopen($this->sDefaultFilePath . "/" . $this->sDefaultFileName, $this->sDefaultFileMode);
 
 			if(!empty($rLogSystemErrorFile))
 			{
-				fwrite($rLogSystemErrorFile, "FileHandleInternalError->File: " . $tExcept->getFile(). " Line: " . $tExcept->getLine() . " Message: " . $tExcept->getMessage() . ", Varibale Resource: ".$this->rLogFile."\n");
+				fwrite($rLogSystemErrorFile, "FileHandleInternalError->File: " . $tExcept->getFile(). " Line: " . $tExcept->getLine() . " Message: " . $tExcept->getMessage() . ", Resource: ".$this->rFile."\n");
 
 				fclose($rLogSystemErrorFile);
 			}
 		}
 
-		unset($this->sLogFileName, $this->sLogFilePath, $this->sLogFileMode);
+		ME_CFileHandle::$iHandleNum--;
+
+		unset($this->sFileName, $this->sFilePath, $this->sFileMode, $this->sDefaultFileName, $this->sDefaultFilePath, $this->sDefaultFileMode);
 	}
 
 	public function CloseFile() : bool
 	{
-		if(!empty($this->rLogFile) && is_resource($this->rLogFile))
+		if(!empty($this->rFile) && is_resource($this->rFile))
 		{
-			if(fclose($this->rLogFile))
+			if(fclose($this->rFile))
 				return TRUE;
 		}
 		else
@@ -100,17 +147,17 @@ class ME_CFileHandle
 
 	public function Write(string $InsData) : void
 	{
-		fwrite($this->rLogFile, $InsData);
+		fwrite($this->rFile, $InsData);
 	}
 
 	public function Read() : string
 	{
-		return fread($this->rLogFile);
+		return fread($this->rFile, filesize($this->s));
 	}
 
 	public function SetFileName(string $InsFileName) : void
 	{
-		$this->sLogFileName = $InsFileName;
+		$this->sFileName = $InsFileName;
 
 		$this->CloseFile();
 
@@ -119,7 +166,7 @@ class ME_CFileHandle
 
 	public function SetFilePath(string $InsFilePath) : void
 	{
-		$this->sLogFilePath = $InsFilePath . "/";
+		$this->sFilePath = $InsFilePath . "/";
 
 		$this->CloseFile();
 
@@ -128,7 +175,7 @@ class ME_CFileHandle
 
 	public function SetFileMode(string $InsFileMode) : void
 	{
-		$this->sLogFileMode = $InsFileMode;
+		$this->sFileMode = $InsFileMode;
 
 		$this->CloseFile();
 
@@ -137,17 +184,17 @@ class ME_CFileHandle
 
 	public function GetFileName() : string
 	{
-		return $this->sLogFileName;
+		return $this->sFileName;
 	}
 
 	public function GetFilePath() : string
 	{
-		return $this->sLogFilePath;
+		return $this->sFilePath;
 	}
 
 	public function GetFileMode() : string
 	{
-		return $this->sLogFileMode;
+		return $this->sFileMode;
 	}
 }
 ?>

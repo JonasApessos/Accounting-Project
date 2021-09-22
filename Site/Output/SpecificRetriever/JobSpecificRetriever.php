@@ -305,7 +305,7 @@ function JobPITByJobIDSpecificRetriever(ME_CDBConnManager &$InrConn, ME_CLogHand
 		(".$sPrefix."VIEW_JOB_INCOME_TIME_SUM.JOB_PIT_ACCESS >= ?
 		AND
 		".$sPrefix."VIEW_JOB_INCOME_TIME_SUM.JOB_ID = ?);";
-		
+
 		if($rStatement = $InrConn->CreateStatement($sQuery))
 		{
 			//Check if the statement binded the variables, else throw an exception with the error
