@@ -1,36 +1,26 @@
 <?php
 function HTMLCompanyAddForm(ME_CDBConnManager &$InrConn,ME_CLogHandle &$InrLogHandle, int &$IniUserAccess) : void
 {
+    $sCompanyAddFormHTML = "";
+
     //-------------<PHP-HTML>-------------//
-    print("
+    $sCompanyAddFormHTML .= "
     <div class='form'>
         <form method='POST'>
             <div>
-                <div id='FormTitle'><h3>New Company</h3></div>
-                <div><label>Name*<input name='Name' type='text' placeholder='Company Name' required></label></div>
-                <div><label>creation date*<input name='Date' type='date' required></label></div>
-            </div>");
-
-    //get rows and render <select> element with data
-    print(" <div><label>County");
-    RenderCountySelectRow($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW']);
-    print(" </label></div>");
-
-    //get rows and render <select> element with data
-    print(" <div><label>Access Type");
-    RenderAccessSelectRow($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW']);
-    print(" </label></div>");
-
-    //Input Buttons
-    printf("
+                <div id='form-title'><h3>New Company</h3></div>
+                <div><label><p>Name*</p><input name='Name' type='text' placeholder='Company Name' required></label></div>
+                <div><label><p>creation date*</p><input name='Date' type='date' required></label></div>
+                <div><label><p>County</p> ".RenderCountySelectRow($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'])."</label></div>
+                <div><label><p>Access</p> ".RenderAccessSelectRow($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'])."</label></div>
+            </div>
             <div>
-                <input type='submit' value='Save' formaction='.?MenuIndex=%d&Module=%d&ProAdd'>
-                <a href='.?MenuIndex=%d'><div><p>Cancel</p></div></a>
+                <input type='submit' value='Save' formaction='.?MenuIndex=".$GLOBALS['MENU']['COMPANY']['INDEX']."&Module=".$GLOBALS['MODULE']['ADD']."&ProAdd'>
+                <a href='.?MenuIndex=".$GLOBALS['MENU']['COMPANY']['INDEX']."'><div><p>Cancel</p></div></a>
             </div>
         </form>
-    </div>",
-    $GLOBALS['MENU']['COMPANY']['INDEX'],
-    $GLOBALS['MODULE']['ADD'],
-    $GLOBALS['MENU']['COMPANY']['INDEX']);
+    </div>";
+
+    print($sCompanyAddFormHTML);
 }
 ?>

@@ -7,6 +7,7 @@ $rConn = new ME_CDBConnManager($rErrorProcLogHandle, $_SESSION['DBName'], $_SESS
 
 function HTMLHeader(ME_CLogHandle &$InrLogHandle)
 {
+	$sHeaderHTML = "";
 	$sHeaderTitle = "";
 
 	if(isset($_GET['MenuIndex']))
@@ -59,18 +60,22 @@ function HTMLHeader(ME_CLogHandle &$InrLogHandle)
 
 
 	//Header Box
-	printf("
+	$sHeaderHTML = "
 	<header class='header'>
 		<div>
 			<div class='header-title'>
-				<h1>%s</h1>
-			</div>", $sHeaderTitle);
+				<h1>".$sHeaderTitle."</h1>
+			</div>";
 
-			HTMLHeaderLogin($InrLogHandle);
+	print($sHeaderHTML);
 
-	print("
+	HTMLHeaderLogin($InrLogHandle);
+
+	$sHeaderHTML = "
 		</div>
-	</header>");
+	</header>";
+
+	print($sHeaderHTML);
 }
 
 function HTMLHeaderLogin(ME_CLogHandle &$InrLogHandle)

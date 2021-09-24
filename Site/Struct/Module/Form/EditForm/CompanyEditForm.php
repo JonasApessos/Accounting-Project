@@ -11,45 +11,31 @@ function HTMLCompanyEditForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLog
 
             if(!empty($rResult) && ($rResult->num_rows == 1))
             {
+                $sCompanyEditFormHTML = "";
+
                 $aDataRow = $rResult->fetch_assoc();
 
                 //-------------<PHP-HTML>-------------//
                 
-                printf("
+                $sCompanyEditFormHTML .= "
                 <div class='form'>
                     <form method='POST'>
                         <div>
-                            <div id='FormTitle'><h3>Edit Company</h3><br><h4>%s</h4></div>
-                            <div><label>Name*<input name='Name' type='text' placeholder='Company Name' value='%s' required></label></div>
-                            <div><label>creation date*<input name='Date' type='date' value='%s' required></label></div>
-                        </div>",
-                $aDataRow['COMP_DATA_TITLE'],
-                $aDataRow['COMP_DATA_TITLE'],
-                $aDataRow['COMP_DATA_DATE']);
-
-                //get rows and render <select> element with data
-                print("<div><label>County");
-                RenderCountySelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], $aDataRow['COU_ID']);
-                print("</label></div>");
-
-                //get rows and render <select> element with data
-                print("<div><label>Access Type");
-                RenderAccessSelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], $aDataRow['COMP_ACCESS']);
-                print("</label></div>");
-
-                //Input Buttons
-                printf("
+                            <div id='form-title'><h3>Edit Company</h3><br><h4>".$aDataRow['COMP_DATA_TITLE']."</h4></div>
+                            <div><label><p>Name*</p><input name='Name' type='text' placeholder='Company Name' value='".$aDataRow['COMP_DATA_TITLE']."' required></label></div>
+                            <div><label><p>creation date*</p><input name='Date' type='date' value='".$aDataRow['COMP_DATA_DATE']."' required></label></div>
+                            <div><label><p>County</p> ".RenderCountySelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], $aDataRow['COU_ID'])."</label></div>
+                            <div><label><p>Access</p> ".RenderAccessSelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], $aDataRow['COMP_ACCESS'])."</label></div>
+                        </div>
                         <div>
-                            <input type='hidden' name='CompIndex' value='%s' required>
-                            <a href='.?MenuIndex=%s'><div><p>Cancel</p></div></a>
-                            <input type='submit' value='Save' formaction='.?MenuIndex=%s&Module=%s&ProEdit'>
+                            <input type='hidden' name='CompIndex' value='".$aDataRow['COMP_ID']."' required>
+                            <a href='.?MenuIndex=".$GLOBALS['MENU']['COMPANY']['INDEX']."'><div><p>Cancel</p></div></a>
+                            <input type='submit' value='Save' formaction='.?MenuIndex=".$GLOBALS['MENU']['COMPANY']['INDEX']."&Module=".$GLOBALS['MODULE']['EDIT']."&ProEdit'>
                         </div>
                     </form>
-                </div>",
-                $aDataRow['COMP_ID'],
-                $GLOBALS['MENU']['COMPANY']['INDEX'],
-                $GLOBALS['MENU']['COMPANY']['INDEX'],
-                $GLOBALS['MODULE']['EDIT']);
+                </div>";
+
+                print($sCompanyEditFormHTML);
 
                 $rResult->free();
             }

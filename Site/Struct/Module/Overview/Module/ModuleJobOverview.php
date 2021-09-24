@@ -9,62 +9,32 @@ $rConn = new ME_CDBConnManager($rProcessLogHandle, $_SESSION['DBName'], $_SESSIO
 function JobPITAddStructSolver(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle)
 {
 	//If the form was completed from the add form then execute the process to at those data in the database.
-	require_once("../MedaLib/Function/Filter/SecurityFilter/SecurityFormFilter.php");
-
 	if(isset($_GET['ProAdd']))
 	{
-		require_once("../MedaLib/Function/Filter/DataFilter/MultyCheckDataTypeFilter/MultyCheckDataNumericType.php");
-		require_once("Input/Parser/AddParser/JobPitAddParser.php");
-		require_once("Process/ProAdd/ProAddJobPIT.php");
-
 		ProQueryFunctionCallback($InrConn, $InrLogHandle, "ProAddJobPit", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
 
 		header("Location:Index.php?MenuIndex=".urlencode($GLOBALS['MENU']['JOB']['INDEX']), $http_response_header=200);
 	}
 	else
-	{
-		require_once("Output/Retriever/JobRetriever.php");
-		require_once("Output/Retriever/AccessRetriever.php");
-		require_once("Struct/Element/Function/Select/SelectAccessRowRender.php");
-		require_once("Struct/Module/Form/AddForm/JobPITAddForm.php");
-
 		ProQueryFunctionCallback($InrConn, $InrLogHandle, "HTMLJobPitAddForm", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
-	}
 }
 
 function JobPITEditStructSolver(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle)
 {
 	//If the form was completed from the Edit form then execute the process and Edit those data in the database.
-	require_once("../MedaLib/Function/Filter/SecurityFilter/SecurityFormFilter.php");
-
 	if(isset($_GET['ProEdit']))
 	{
-		require_once("../MedaLib/Function/Filter/DataFilter/MultyCheckDataTypeFilter/MultyCheckDataNumericType.php");
-		require_once("Input/Parser/EditParser/JobPITEditParser.php");
-		require_once("Output/SpecificRetriever/JobSpecificRetriever.php");
-		require_once("Process/ProEdit/ProEditJobPIT.php");
-
 		ProQueryFunctionCallback($InrConn, $InrLogHandle, "ProEditJobPIT", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
 
 		header("Location:Index.php?MenuIndex=".urlencode($GLOBALS['MENU']['JOB']['INDEX']), $http_response_header=200);
 	}
 	else
-	{
-		require_once("Output/SpecificRetriever/JobSpecificRetriever.php");
-		require_once("Output/Retriever/AccessRetriever.php");
-		require_once("Struct/Element/Function/Select/SelectAccessRowRender.php");
-		require_once("Struct/Module/Form/EditForm/JobPITEditForm.php");
-
 		ProQueryFunctionCallback($InrConn, $InrLogHandle, "HTMLJobPITEditForm", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
-	}
 }
 
 function JobPITDeleteStructSolver(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle)
 {
 	//Execute the process and edit the show flag data in the database.
-	require_once("Input/Parser/VisibilityParser/JobPITVisParser.php");
-	require_once("Process/ProDel/ProDelJobPIT.php");
-
 	ProQueryFunctionCallback($InrConn, $InrLogHandle, "ProDelJobPIT", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
 
 	header("Location:Index.php?MenuIndex=".urlencode($GLOBALS['MENU']['JOB']['INDEX']), $http_response_header=200);
@@ -75,25 +45,16 @@ function JobPITOverviewStructSolver(ME_CDBConnManager &$InrConn, ME_CLogHandle &
 	switch($_GET['SubModule'])
 	{
 		case $GLOBALS['MODULE']['ADD']:
-		{
 			JobPITAddStructSolver($InrConn, $InrLogHandle);
-
 			break;
-		}
 
 		case $GLOBALS['MODULE']['EDIT']:
-		{
 			JobPITEditStructSolver($InrConn, $InrLogHandle);
-
 			break;
-		}
 
 		case $GLOBALS['MODULE']['DELETE']:
-		{
 			JobPITDeleteStructSolver($InrConn, $InrLogHandle);
-
 			break;
-		}
 	}
 }
 
@@ -102,64 +63,31 @@ function JobAddStructSolver(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogH
 	//If the form was completed from the add form then execute the process to at those data in the database.
 	if(isset($_GET['ProAdd']))
 	{
-		require_once("../MedaLib/Function/Filter/SecurityFilter/SecurityFormFilter.php");
-		require_once("../MedaLib/Function/Filter/DataFilter/MultyCheckDataTypeFilter/MultyCheckDataNumericType.php");
-		require_once("Input/Parser/AddParser/JobAddParser.php");
-		require_once("Process/ProAdd/ProAddJob.php");
-
 		ProQueryFunctionCallback($InrConn, $InrLogHandle, "ProAddJob", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
 
 		header("Location:Index.php?MenuIndex=".urlencode($GLOBALS['MENU']['JOB']['INDEX']), $http_response_header=200);
 	}
 	else
-	{
-		require_once("Output/Retriever/CompanyRetriever.php");
-		require_once("Output/Retriever/AccessRetriever.php");
-		require_once("Struct/Element/Function/Select/SelectCompanyRowRender.php");
-		require_once("Struct/Element/Function/Select/SelectAccessRowRender.php");
-		require_once("Struct/Module/Form/AddForm/JobAddForm.php");
-
 		ProQueryFunctionCallback($InrConn, $InrLogHandle, "HTMLJobAddForm", $GLOBALS['ACCESS']['EMPLOYEE'], "GET");
-	}
 }
 
 function JobEditStructSolver(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle)
 {
 	//If the form was completed from the Edit form then execute the process and Edit those data in the database.
-	require_once("../MedaLib/Function/Filter/SecurityFilter/SecurityFormFilter.php");
-
 	if(isset($_GET['ProEdit']))
 	{
-		require_once("../MedaLib/Function/Filter/DataFilter/MultyCheckDataTypeFilter/MultyCheckDataNumericType.php");
-		require_once("Input/Parser/EditParser/JobEditParser.php");
-		require_once("Output/SpecificRetriever/JobSpecificRetriever.php");
-		require_once("Output/Retriever/JobRetriever.php");
-		require_once("Process/ProEdit/ProEditJob.php");
-
 		ProQueryFunctionCallback($InrConn, $InrLogHandle, "ProEditJob", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
 
 		header("Location:Index.php?MenuIndex=".urlencode($GLOBALS['MENU']['JOB']['INDEX']), $http_response_header=200);
 	}
 	else
-	{
-		require_once("Output/Retriever/AccessRetriever.php");
-		require_once("Output/Retriever/CompanyRetriever.php");
-		require_once("Output/SpecificRetriever/JobSpecificRetriever.php");
-		require_once("Struct/Element/Function/Select/SelectCompanyRowRender.php");
-		require_once("Struct/Element/Function/Select/SelectAccessRowRender.php");
-		require_once("Struct/Module/Form/EditForm/JobEditForm.php");
-
 		ProQueryFunctionCallback($InrConn, $InrLogHandle, "HTMLJobEditForm", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
-	}
+
 }
 
 function JobDeleteStructSolver(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle)
 {
 	//Execute the process and edit the show flag data in the database.
-	require_once("Input/Parser/VisibilityParser/JobVisParser.php");
-	require_once("Output/SpecificRetriever/JobSpecificRetriever.php");
-	require_once("Process/ProDel/ProDelJob.php");
-
 	ProQueryFunctionCallback($InrConn, $InrLogHandle, "ProDelJob", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
 
 	header("Location:Index.php?MenuIndex=".urlencode($GLOBALS['MENU']['JOB']['INDEX']), $http_response_header=200);
@@ -213,12 +141,7 @@ function JobOverviewStructSolver(ME_CDBConnManager &$InrConn, ME_CLogHandle &$In
 
 //If the module is not set then CompanyOverview from menu was selected, then load the overview.
 if(!isset($_GET['Module']))
-{
-	require_once("Output/SpecificRetriever/JobSpecificRetriever.php");
-	require_once("Output/Retriever/JobRetriever.php");
-
 	ProQueryFunctionCallback($rConn, $rProcessLogHandle, "HTMLJobOverview", $GLOBALS['ACCESS']['EMPLOYEE'], "GET");
-}
 else
 	JobOverviewStructSolver($rConn, $rProcessLogHandle);
 

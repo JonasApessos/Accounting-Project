@@ -12,38 +12,29 @@ function HTMLJobPITEditForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogH
 
             if(!empty($rResult) && ($rResult->num_rows == 1))
             {
+                $sJobPITEditFormHTML = "";
+
                 $aDataRow = $rResult->fetch_assoc();
 
                 //Input Row - payment
-                printf("
+                $sJobPITEditFormHTML .= "
                 <div class='form'>
                     <form method='POST'>
                         <div>
-                            <div id='FormTitle'><h3>Edit Payment</h3></div>
-                            <div><label>Payment<input type='number' name='PIT' value='%s'></label></div>
-                            <div><label>Date*<input type='date' name='Date' value='%s' required></label></div>
-                        </div>",
-                $aDataRow['JOB_PIT_PAYMENT'],
-                $aDataRow['JOB_PIT_DATE']);
-
-                //Input Row - access list
-                print("<div><label>Access");
-                RenderAccessSelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], (int) $aDataRow['JOB_PIT_ACCESS']);
-                print("</label></div>");
-
-                printf("
+                            <div id='form-title'><h3>Edit Payment</h3></div>
+                            <div><label><p>Payment</p><input type='number' name='PIT' value='".$aDataRow['JOB_PIT_PAYMENT']."'></label></div>
+                            <div><label><p>Date*</p><input type='date' name='Date' value='".$aDataRow['JOB_PIT_DATE']."' required></label></div>
+                            <div><label><p>Access</p> ".RenderAccessSelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], (int) $aDataRow['JOB_PIT_ACCESS'])."</label></div>
+                        </div>
                         <div>
-                            <input type='hidden' name='JobPITIndex' value='%d'>
-                            <a href='.?MenuIndex=%d'><div class='Button-Left'><p>Cancel</p></div></a>
-                            <input type='submit' value='Save' formaction='.?MenuIndex=%d&Module=%d&SubModule=%d&ProEdit'>
+                            <input type='hidden' name='JobPITIndex' value='".$aDataRow['JOB_PIT_ID']."'>
+                            <a href='.?MenuIndex=".$GLOBALS['MENU']['JOB']['INDEX']."'><div class='Button-Left'><p>Cancel</p></div></a>
+                            <input type='submit' value='Save' formaction='.?MenuIndex=".$GLOBALS['MENU']['JOB']['INDEX']."&Module=".$GLOBALS['MODULE']['EXTEND']."&SubModule=".$GLOBALS['MODULE']['EDIT']."&ProEdit'>
                         </div>
                     </form>
-                </div>",
-                $aDataRow['JOB_PIT_ID'],
-                $GLOBALS['MENU']['JOB']['INDEX'],
-                $GLOBALS['MENU']['JOB']['INDEX'],
-                $GLOBALS['MODULE']['EXTEND'],
-                $GLOBALS['MODULE']['EDIT']);
+                </div>";
+
+                print($sJobPITEditFormHTML);
 
                 $rResult->free();
             }

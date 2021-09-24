@@ -12,37 +12,29 @@ function HTMLCountryEditForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLog
 
             if(!empty($rResult) && ($rResult->num_rows == 1))
             {
+                $sCountryEditFormHTML = "";
+
                 $aDataRow = $rResult->fetch_assoc();
 
                 //-------------<PHP-HTML>-------------//
 
-                printf("
+                $sCountryEditFormHTML .= "
                 <div class='form'>
                     <form method='POST'>
                         <div>
-                            <div id='FormTitle'><h3>Edit Country</h3><br><h4>%s</h4></div>
-                            <div><label>Name*<input type='text' placeholder='Country name' name='Name' value='%s' required></label></div>
-                        </div>",
-                $aDataRow['COUN_DATA_TITLE'],
-                $aDataRow['COUN_DATA_TITLE']);
-
-                //get rows and render <select> element with data
-                print(" <div><label>Access");
-                RenderAccessSelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], $aDataRow['COUN_ACCESS']);
-                print(" </label></div>");
-
-                printf("
+                            <div id='form-title'><h3>Edit Country</h3><br><h4>".$aDataRow['COUN_DATA_TITLE']."</h4></div>
+                            <div><label><p>Name*</p><input type='text' placeholder='Country name' name='Name' value='".$aDataRow['COUN_DATA_TITLE']."' required></label></div>
+                            <div><label><p>Access</p> ".RenderAccessSelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], $aDataRow['COUN_ACCESS'])."</label></div>
+                        </div>
                         <div>
-                            <input type='hidden' name='CounIndex' value='%s' required>
-                            <input type='submit' value='Save' formaction='.?MenuIndex=%s&Module=%s&ProEdit'>
-                            <a href='.?MenuIndex=%s'><div class='Button-Left'><p>Cancel</p></div></a>
+                            <input type='hidden' name='CounIndex' value='".$aDataRow['COUN_ID']."' required>
+                            <input type='submit' value='Save' formaction='.?MenuIndex=".$GLOBALS['MENU']['COUNTRY']['INDEX']."&Module=".$GLOBALS['MODULE']['EDIT']."&ProEdit'>
+                            <a href='.?MenuIndex=".$GLOBALS['MENU']['COUNTRY']['INDEX']."'><div class='Button-Left'><p>Cancel</p></div></a>
                         </div>
                     </form>
-                </div>",
-                $aDataRow['COUN_ID'],
-                $GLOBALS['MENU']['COUNTRY']['INDEX'],
-                $GLOBALS['MODULE']['EDIT'],
-                $GLOBALS['MENU']['COUNTRY']['INDEX']);
+                </div>";
+
+                print($sCountryEditFormHTML);
 
                 $rResult->free();
             }

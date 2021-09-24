@@ -1,8 +1,4 @@
 <?php
-require_once("../MedaLib/Function/SQL/SQLStatementExec.php");
-require_once("../MedaLib/Function/Generator/HTMLSelectStructure.php");
-require_once("Output/Retriever/CompanyRetriever.php");
-
 function HTMLCompanyOverview(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle, int $IniUserAccess) : void
 {
     $sSearchQuery = (isset($_GET['SearchQuery'])) ? htmlspecialchars($_GET['SearchQuery']) : "";
@@ -36,13 +32,15 @@ function HTMLCompanyDataBlock(mysqli_result &$InrResult, ME_CLogHandle &$InrLogH
     $sCompHtml .= "
     <div class='content-tool-bar'>
         <a href='.?MenuIndex=".$GLOBALS['MENU']['COMPANY']['INDEX']."&Module=".$GLOBALS['MODULE']['ADD']."'>
-            <div class='button-left'><h5>ADD</h5></div>
+            <div class='button-left'><p><b>ADD</b></p></div>
         </a>
-        <form action='.' method='get'>
-            <input type='hidden' name='MenuIndex' value='".$GLOBALS['MENU']['COMPANY']['INDEX']."'><label>Search by</label>".$sHTMLGeneratedSelectStructure."
-            <label>Query</label><input type='text' id='QueryInput' name='SearchQuery' value='".((isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "")."'>
-            <button>submit</button>
-        </form>
+        <div>
+            <form action='.' method='get'>
+                <input type='hidden' name='MenuIndex' value='".$GLOBALS['MENU']['COMPANY']['INDEX']."'><label>Search by ".$sHTMLGeneratedSelectStructure."</label>
+                <label>Query <input type='text' id='QueryInput' name='SearchQuery' value='".((isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "")."'></label>
+                <button class='button-right'><p><b>Search</b></p></button>
+            </form>
+        </div>
     </div>";
 
     foreach($InrResult->fetch_all(MYSQLI_ASSOC) as $aDataRow)

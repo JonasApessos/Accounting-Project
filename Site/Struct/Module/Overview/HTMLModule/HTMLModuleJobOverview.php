@@ -1,9 +1,6 @@
 <?php
-require_once("../MedaLib/Function/SQL/SQLStatementExec.php");
-require_once("../MedaLib/Function/Generator/HTMLSelectStructure.php");
-
 function HTMLJobPITOverview(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle, int $IniUserAccess) : void
-{
+{	
 	if(isset($_POST['JobIndex']) && !empty($_POST['JobIndex']) && is_numeric($_POST['JobIndex']))
 	{
 		$iJobIndex = (int) $_POST['JobIndex'];
@@ -68,6 +65,8 @@ function HTMLJobPITDataBlock(mysqli_result &$InrResult, ME_CLogHandle &$InrLogHa
 
 function HTMLJobOverview(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle, int $IniUserAccess) : void
 {
+	
+
 	$sSearchQuery = (isset($_GET['SearchQuery'])) ? htmlspecialchars($_GET['SearchQuery']) : "";
     $sSearchType = (isset($_GET['SearchType'])) ? htmlspecialchars($_GET['SearchType']) : "";
 
@@ -101,13 +100,15 @@ function HTMLJobOverviewDataBlock(ME_CDBConnManager &$InrConn, mysqli_result &$I
 	$sJobHTML .= "
 	<div class='content-tool-bar'>
 		<a href='.?MenuIndex=".$GLOBALS['MENU']['JOB']['INDEX']."&Module=".$GLOBALS['MODULE']['ADD']."'>
-			<div class='button-left'><h5>ADD</h5></div>
+			<div class='button-left'><p><b>ADD</b></p></div>
 		</a>
-		<form action='.' method='get'>
-			<input type='hidden' name='MenuIndex' value='".$GLOBALS['MENU']['JOB']['INDEX']."'><label>Search by ".$sHTMLGeneratedSelectStructure."</label>
-			<label>Query</label><input type='text' name='SearchQuery' value='".((isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "")."'>
-			<button>submit</button>
-		</form>
+		<div>
+			<form action='.' method='get'>
+				<input type='hidden' name='MenuIndex' value='".$GLOBALS['MENU']['JOB']['INDEX']."'><label>Search by ".$sHTMLGeneratedSelectStructure."</label>
+				<label>Query</label><input type='text' name='SearchQuery' value='".((isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "")."'>
+				<button class='button-right'><p><b>Search</b></p></button>
+			</form>
+		</div>
 	</div>";
 
 	foreach($InrResult->fetch_all(MYSQLI_ASSOC) as $aJobRow)

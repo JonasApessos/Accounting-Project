@@ -2,33 +2,24 @@
 //-------------<FUNCTION>-------------//
 function HTMLShareholderAddForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle, int &$IniUserAccess) : void
 {
+	$sShareholderAddFormHTML = "";
+	
   	//-------------<PHP-HTML>-------------//
-	print("
+	  $sShareholderAddFormHTML .= "
 	<div class='form'>
 		<form method='POST'>
 			<div>
-				<div id='FormTitle'><h3>New Shareholder</h3></div>
-			</div>");
-
-	//Input Row
-	print("<div><label>Employee");
-	RenderEmployeeSelectRow($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW']);
-	print("</label></div>");
-
-	//Input Row
-	print("<div><label>Access");
-	RenderAccessSelectRow($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW']);
-	print("</label></div>");
-
-	printf("
+				<div id='form-title'><h3>New Shareholder</h3></div>
+				<div><label><p>Employee</p> ".RenderEmployeeSelectRow($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'])."</label></div>
+				<div><label><p>Access</p> ".RenderAccessSelectRow($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'])."</label></div>
+			</div>
 			<div>
-				<input type='submit' value='Save' formaction='.?MenuIndex=%d&Module=%d&ProAdd'>
-				<a href='.?MenuIndex=%d'><div class='Button-Left'><p>Cancel</p></div></a>
+				<input type='submit' value='Save' formaction='.?MenuIndex=".$GLOBALS['MENU']['SHAREHOLDER']['INDEX']."&Module=".$GLOBALS['MODULE']['ADD']."&ProAdd'>
+				<a href='.?MenuIndex=".$GLOBALS['MENU']['SHAREHOLDER']['INDEX']."'><div class='Button-Left'><p>Cancel</p></div></a>
 			</div>
 		</form>
-	</div>",
-	$GLOBALS['MENU']['SHAREHOLDER']['INDEX'],
-	$GLOBALS['MODULE']['ADD'],
-	$GLOBALS['MENU']['SHAREHOLDER']['INDEX']);
+	</div>";
+
+	print($sShareholderAddFormHTML);
 }
 ?>

@@ -1,8 +1,4 @@
 <?php
-require_once("../MedaLib/Function/SQL/SQLStatementExec.php");
-require_once("../MedaLib/Function/Generator/HTMLSelectStructure.php");
-require_once("Output/Retriever/CustomerRetriever.php");
-
 function HTMLCustomerOverview(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle, int $IniUserAccess) : void
 {
 	$sSearchQuery = (isset($_GET['SearchQuery'])) ? htmlspecialchars($_GET['SearchQuery']) : "";
@@ -34,13 +30,15 @@ function HTMLCustomerOverviewDataBlock(mysqli_result &$InrResult, ME_CLogHandle 
 	$sCustomerHTML .= "
 	<div class='content-tool-bar'>
 		<a href='.?MenuIndex=".$GLOBALS['MENU']['CUSTOMER']['INDEX']."&Module=".$GLOBALS['MODULE']['ADD']."'>
-			<div class='button-left'><h5>ADD</h5></div>
+			<div class='button-left'><p><b>ADD</b></p></div>
 		</a>
-		<form action='.' method='get'>
-			<input type='hidden' name='MenuIndex' value='".$GLOBALS['MENU']['CUSTOMER']['INDEX']."'><label>Search by ".$sHTMLGeneratedSelectStructure."</label>
-			<label>Query</label><input type='text' name='SearchQuery' value='".((isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "")."'>
-			<button>submit</button>
-		</form>
+		<div>
+			<form action='.' method='get'>
+				<input type='hidden' name='MenuIndex' value='".$GLOBALS['MENU']['CUSTOMER']['INDEX']."'><label>Search by ".$sHTMLGeneratedSelectStructure."</label>
+				<label>Query</label><input type='text' name='SearchQuery' value='".((isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "")."'>
+				<button class='button-right'><p><b>Search</b></p></button>
+			</form>
+		</div>
 	</div>";
 
 	foreach($InrResult as $aDataRow)
@@ -50,8 +48,7 @@ function HTMLCustomerOverviewDataBlock(mysqli_result &$InrResult, ME_CLogHandle 
 			$sCustomerHTML .= "
 			<div class='data-block'>
 				<form method='POST'>
-					<div>
-						<div><h5>".$aDataRow['CUST_DATA_NAME']." ".$aDataRow['CUST_DATA_SURNAME']."</h5></div>
+					<div><h5>".$aDataRow['CUST_DATA_NAME']." ".$aDataRow['CUST_DATA_SURNAME']."</h5></div>
 					<div>
 						<div><b><p>Email</p></b></div>
 						<div><p>".(empty($aDataRow['CUST_DATA_EMAIL']) ? "None" : $aDataRow['CUST_DATA_EMAIL'])."</p></div>
@@ -74,7 +71,7 @@ function HTMLCustomerOverviewDataBlock(mysqli_result &$InrResult, ME_CLogHandle 
 					</div>
 					<div>
 						<div><b><p>Note</p></b></div>
-						<div><p>".(empty($aDataRow['CUST_DATA_NOTE']) ? "None" : $aDataRow['CUST_DATA_NOTE'])."</p></div></div>
+						<div><p>".(empty($aDataRow['CUST_DATA_NOTE']) ? "None" : $aDataRow['CUST_DATA_NOTE'])."</p></div>
 					</div>
 					<div>
 						<input type='hidden' name='CustIndex' value='".$aDataRow['CUST_ID']."'>

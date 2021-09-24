@@ -12,40 +12,28 @@ function HTMLShareholderEditForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$In
 
             if(!empty($rResult) && ($rResult->num_rows == 1))
             {
+                $sShareholderEditFormHTML = "";
+
                 $aDataRow = $rResult->fetch_assoc();
 
-                print("");
-
                 //Title
-                print("
+                $sShareholderEditFormHTML .= "
                 <div class='form'>
                     <form method='POST'>
                         <div>
-                            <div id='FormTitle'><h3>Edit Shareholder</h3></div>
-                        </div>");
-
-                //Input Row - employee list
-                print("<div><label>Employee");
-                RenderEmployeeSelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], (int) $aDataRow['EMP_ID']);
-                print("</label></div>");
-
-                //Input Row - access list
-                print("<div><label>Access");
-                RenderAccessSelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], (int) $aDataRow['SHARE_ACCESS']);
-                print("</label></div>");
-
-                printf("
+                            <div id='form-title'><h3>Edit Shareholder</h3></div>
+                            <div><label><p>Employee</p> ".RenderEmployeeSelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], (int) $aDataRow['EMP_ID'])."</label></div>
+                            <div><label><p>Access</p> ".RenderAccessSelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], (int) $aDataRow['SHARE_ACCESS'])."</label></div>
+                        </div>
                         <div>
-                            <input type='hidden' value='%s' name='ShareIndex' required>
-                            <input type='submit' value='Save' formaction='.?MenuIndex=%d&Module=%d&ProEdit'>
-                            <a href='.?MenuIndex=%d'><div class='Button-Left'><p>Cancel</p></div></a>
+                            <input type='hidden' value='".$aDataRow['SHARE_ID']."' name='ShareIndex' required>
+                            <input type='submit' value='Save' formaction='.?MenuIndex=".$GLOBALS['MENU']['SHAREHOLDER']['INDEX']."&Module=".$GLOBALS['MODULE']['EDIT']."&ProEdit'>
+                            <a href='.?MenuIndex=".$GLOBALS['MENU']['SHAREHOLDER']['INDEX']."'><div class='Button-Left'><p>Cancel</p></div></a>
                         </div>
                     </form>
-                </div>",
-                $aDataRow['SHARE_ID'],
-                $GLOBALS['MENU']['SHAREHOLDER']['INDEX'],
-                $GLOBALS['MODULE']['EDIT'],
-                $GLOBALS['MENU']['SHAREHOLDER']['INDEX']);
+                </div>";
+
+                print($sShareholderEditFormHTML);
 
                 $rResult->free();
             }

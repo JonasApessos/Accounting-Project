@@ -11,69 +11,30 @@ function EmpAddStructSolver(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogH
 	//If the form was completed from the add form then execute the process to at those data in the database.
 	if(isset($_GET['ProAdd']))
 	{
-		require_once("../MedaLib/Function/Filter/SecurityFilter/SecurityFormFilter.php");
-		require_once("../MedaLib/Function/Filter/DataFilter/MultyCheckDataTypeFilter/MultyCheckDataNumericType.php");
-		require_once("Input/Parser/AddParser/EmployeeAddParser.php");
-		require_once("Process/ProAdd/ProAddEmployee.php");
-
 		ProQueryFunctionCallback($InrConn, $InrLogHandle, "ProAddEmployee", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
 
 		header("Location:.?MenuIndex=".urlencode($GLOBALS['MENU']['EMPLOYEE']['INDEX']), $http_response_header=200);
 	}
 	else
-	{
-		require_once("Output/Retriever/CompanyRetriever.php");
-		require_once("Output/Retriever/EmployeeRetriever.php");
-		require_once("Output/Retriever/AccessRetriever.php");
-		require_once("Struct/Element/Function/Select/SelectCompanyRowRender.php");
-		require_once("Struct/Element/Function/Select/SelectEmployeePositionRowRender.php");
-		require_once("Struct/Element/Function/Select/SelectAccessRowRender.php");
-		require_once("Struct/Module/Form/AddForm/EmployeeAddForm.php");
-
 		ProQueryFunctionCallback($InrConn, $InrLogHandle, "HTMLEmployeeAddForm", $GLOBALS['ACCESS']['EMPLOYEE'], "GET");
-	}
 }
 
 function EmpEditStructSolver(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle)
 {
 	//If the form was completed from the Edit form then execute the process and Edit those data in the database.
-	require_once("../MedaLib/Function/Filter/SecurityFilter/SecurityFormFilter.php");
-
 	if(isset($_GET['ProEdit']))
 	{
-		require_once("../MedaLib/Function/Filter/DataFilter/MultyCheckDataTypeFilter/MultyCheckDataNumericType.php");
-		require_once("Input/Parser/EditParser/EmployeeEditParser.php");
-		require_once("Output/Retriever/EmployeeRetriever.php");
-		require_once("Output/SpecificRetriever/EmployeeSpecificRetriever.php");
-		require_once("Process/ProEdit/ProEditEmployee.php");
-
 		ProQueryFunctionCallback($InrConn, $InrLogHandle, "ProEditEmployee", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
 
 		header("Location:.?MenuIndex=".urlencode($GLOBALS['MENU']['EMPLOYEE']['INDEX']), $http_response_header=200);
 	}
 	else
-	{
-		require_once("../MedaLib/Function/Filter/DataFilter/MultyCheckDataTypeFilter/MultyCheckDataNumericType.php");
-		require_once("Output/Retriever/CompanyRetriever.php");
-		require_once("Output/Retriever/EmployeeRetriever.php");
-		require_once("Output/Retriever/AccessRetriever.php");
-		require_once("Output/SpecificRetriever/EmployeeSpecificRetriever.php");
-		require_once("Struct/Element/Function/Select/SelectAccessRowRender.php");
-		require_once("Struct/Element/Function/Select/SelectCompanyRowRender.php");
-		require_once("Struct/Element/Function/Select/SelectEmployeePositionRowRender.php");
-		require_once("Struct/Module/Form/EditForm/EmployeeEditForm.php");
-
 		ProQueryFunctionCallback($InrConn, $InrLogHandle, "HTMLEmployeeEditForm", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
-	}
 }
 
 function EmpDeleteStructSolver(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle)
 {
 	//Execute the process and edit the show flag data in the database.
-	require_once("Input/Parser/VisibilityParser/EmployeeVisParser.php");
-	require_once("Output/SpecificRetriever/EmployeeSpecificRetriever.php");
-	require_once("Process/ProDel/ProDelEmployee.php");
-
 	ProQueryFunctionCallback($InrConn, $InrLogHandle, "ProDelEmployee", $GLOBALS['ACCESS']['EMPLOYEE'], "POST");
 
 	header("Location:.?MenuIndex=".urlencode($GLOBALS['MENU']['EMPLOYEE']['INDEX']), $http_response_header=200);
@@ -87,29 +48,20 @@ function EmpOverviewStructSolver(ME_CDBConnManager &$InrConn, ME_CLogHandle &$In
 	switch($_GET['Module'])
 	{
 		case $GLOBALS['MODULE']['ADD']:
-		{
 			EmpAddStructSolver($InrConn, $InrLogHandle);
-			
 			break;
-		}
+
 		case $GLOBALS['MODULE']['EDIT']:
-		{
 			EmpEditStructSolver($InrConn, $InrLogHandle);
-
 			break;
-		}
+
 		case $GLOBALS['MODULE']['DELETE']:
-		{
 			EmpDeleteStructSolver($InrConn, $InrLogHandle);
-			
 			break;
-		}
-		default:
-		{
-			header("Location:.");
 
+		default:
+			header("Location:.");
 			break;
-		}
 	}
 }
 

@@ -8,12 +8,12 @@ function HTMLJobAssigmentAddForm(ME_CDBConnManager &$InrConn, ME_CLogHandle &$In
     <div class='form'>
         <form method='POST'>
             <div>
-                <div id='FormTitle'><h3>New Job Assigment</h3></div>
-                <div><label>Name<input name='Name' type='text' placeholder='Job name' required></label></div>
-                <div><label>Price<input name='Price' type='number' placeholder='Job price' required></label></div>
-                <div><label>Payment in advance<input name='PIA' type='number' placeholder='Job Payment in advance'></label></div>
-                <div><label>Expenses<input name='Expenses' type='number' placeholder='Job expensess'></label></div>
-                <div><label>Damage<input name='Damage' type='number' placeholder='Job Damage expensess'></label></div>
+                <div id='form-title'><h3>New Job Assigment</h3></div>
+                <div><label><p>Name</p><input name='Name' type='text' placeholder='Job name' required></label></div>
+                <div><label><p>Price</p><input name='Price' type='number' placeholder='Job price' required></label></div>
+                <div><label><p>Payment in advance</p><input name='PIA' type='number' placeholder='Job Payment in advance'></label></div>
+                <div><label><p>Expenses</p><input name='Expenses' type='number' placeholder='Job expensess'></label></div>
+                <div><label><p>Damage</p><input name='Damage' type='number' placeholder='Job Damage expensess'></label></div>
             </div>");
 
     //Input Row - company list

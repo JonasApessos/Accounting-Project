@@ -12,39 +12,31 @@ function HTMLEmployeePositionEditForm(ME_CDBConnManager &$InrConn, ME_CLogHandle
 
             if(!empty($rResult) && ($rResult->num_rows == 1))
             {
+                $sEmployeePositionEditFormHTML = "";
+
                 $aDataRow = $rResult->fetch_assoc();
 
                 //-------------<PHP-HTML>-------------//
 
                 //Title
-                printf("
+                $sEmployeePositionEditFormHTML .= "
                 <div class='form'>
                     <form method='POST'>
                         <div>
-                            <div id='FormTitle'><h3>Edit Employee Position</h3><br><h4>%s</h4></div>
-                            <div><label>Title*<input type='text' name='Name' placeholder='title position' value='%s' required></label></div>
-                        </div>",
-                $aDataRow['EMP_POS_TITLE'],
-                $aDataRow['EMP_POS_TITLE']);
-
-                //get rows and render <select> element with data
-                print(" <div><label>Access");
-                RenderAccessSelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], $aDataRow['EMP_POS_ACCESS']);
-                print(" </label></div>");
-
-                //Button Input
-                printf("
+                            <div id='form-title'><h3>Edit Employee Position</h3><br><h4>".$aDataRow['EMP_POS_TITLE']."</h4></div>
+                            <div><label><p>Title*</p><input type='text' name='Name' placeholder='title position' value='".$aDataRow['EMP_POS_TITLE']."' required></label></div>
+                            <div><label><p>Access</p> ".RenderAccessSelectRowCheck($InrConn, $InrLogHandle, $IniUserAccess, $GLOBALS['AVAILABLE']['SHOW'], $aDataRow['EMP_POS_ACCESS'])."</label></div>
+                        </div>
                         <div>
-                            <input type='hidden' value='%s' name='EmpPosIndex'>
-                            <input type='submit' value='Save' formaction='.?MenuIndex=%s&Module=%s&ProEdit'>
-                            <a href='.?MenuIndex=%d'><div class='Button-Left'><p>Cancel</p></div></a>
+                            <input type='hidden' value='".$aDataRow['EMP_POS_ID']."' name='EmpPosIndex'>
+                            <input type='submit' value='Save' formaction='.?MenuIndex=".$GLOBALS['MENU']['EMPLOYEE_POSITION']['INDEX']."&Module=".$GLOBALS['MODULE']['EDIT']."&ProEdit'>
+                            <a href='.?MenuIndex=".$GLOBALS['MENU']['EMPLOYEE_POSITION']['INDEX']."'><div class='Button-Left'><p>Cancel</p></div></a>
                         </div>
                     </form>
-                </div>",
-                $aDataRow['EMP_POS_ID'],
-                $GLOBALS['MENU']['EMPLOYEE_POSITION']['INDEX'],
-                $GLOBALS['MODULE']['EDIT'],
-                $GLOBALS['MENU']['EMPLOYEE_POSITION']['INDEX']);
+                </div>";
+
+                //Button Input
+                print($sEmployeePositionEditFormHTML);
 
                 $rResult->free();
             }

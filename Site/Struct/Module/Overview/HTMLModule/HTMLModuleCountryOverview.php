@@ -1,8 +1,4 @@
 <?php
-require_once("../MedaLib/Function/SQL/SQLStatementExec.php");
-require_once("../MedaLib/Function/Generator/HTMLSelectStructure.php");
-require_once("Output/Retriever/CountryRetriever.php");
-
 function HTMLCountryOverview(ME_CDBConnManager &$InrConn, ME_CLogHandle &$InrLogHandle, int $IniUserAccess) : void
 {
     $sSearchQuery = (isset($_GET['SearchQuery'])) ? htmlspecialchars($_GET['SearchQuery']) : "";
@@ -34,13 +30,15 @@ function HTMLCountryOverviewDataBlock(mysqli_result &$InrResult, ME_CLogHandle &
     $sCountryHTML .= "
     <div class='content-tool-bar'>
         <a href='.?MenuIndex=".$GLOBALS['MENU']['COUNTRY']['INDEX']."&Module=".$GLOBALS['MODULE']['ADD']."'>
-            <div class='button-left'><h5>ADD</h5></div>
+            <div class='button-left'><p><b>ADD</b></p></div>
         </a>
-        <form action='.' method='get'>
-            <input type='hidden' name='MenuIndex' value='".$GLOBALS['MENU']['COUNTRY']['INDEX']."'><label>Search by ".$sHTMLGeneratedSelectStructure."</label>
-            <label>Query <input id='QueryInput' type='text' name='SearchQuery' value='".((isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "")."'></label>
-            <button>submit</button>
-        </form>
+        <div>
+            <form action='.' method='get'>
+                <input type='hidden' name='MenuIndex' value='".$GLOBALS['MENU']['COUNTRY']['INDEX']."'><label>Search by ".$sHTMLGeneratedSelectStructure."</label>
+                <label>Query <input id='QueryInput' type='text' name='SearchQuery' value='".((isset($_GET['SearchQuery'])) ? $_GET['SearchQuery'] : "")."'></label>
+                <button class='button-right'><p><b>Search</b></p></button>
+            </form>
+        </div>
     </div>";
 
     foreach($InrResult->fetch_all(MYSQLI_ASSOC) as $aDataRow)
@@ -51,9 +49,7 @@ function HTMLCountryOverviewDataBlock(mysqli_result &$InrResult, ME_CLogHandle &
             $sCountryHTML .= "
             <div class='data-block'>
                 <form method='POST'>
-                    <div>
-                        <div><h5>".$aDataRow['COUN_DATA_TITLE']."</h5></div>
-                    </div>
+                    <div><h5>".$aDataRow['COUN_DATA_TITLE']."</h5></div>
                     <div>
                         <input type='hidden' name='CounIndex' value='".$aDataRow['COUN_ID']."'>
                         <input type='submit' value='Delete' formaction='.?MenuIndex=".$GLOBALS['MENU']['COUNTRY']['INDEX']."&Module=".$GLOBALS['MODULE']['DELETE']."'>

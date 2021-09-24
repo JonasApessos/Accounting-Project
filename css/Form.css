@@ -1,72 +1,58 @@
 #form-title
 {
-	background-color:#152977;
+	background-color:var(--data-block-background-title);
 	color:white;
 	width:100%;
 	text-align:center;
-	margin:0% 0% 2% 0%;
 	padding:1% 0% 1% 0%;
+	border-bottom:0.1em solid black;
 }
 
 .form
 {
 	background-color:white;
-	width:50%;
-	min-width:32em;
+	outline: black solid 0.15em;
+	width:25%;
 	height:auto;
 	float:left;
 	clear:both;
-	margin:2% 24%;
+	margin:2% 37.5%;
 	padding:0% 0% 0% 0%;
 }
 
-.form div:first-child
+.form form div
 {
 	width:100%;
-	height:auto;
 	float:left;
 	clear:both;
 	margin:0%;
 	padding:0%;
 }
 
-.form div:last-child
+.form > form > div:last-child
 {
-	width:100%;
-	height:auto;
-	float:left;
-	clear:both;
-	margin:0%;
-	padding:0%;
+	background-color:var(--data-block-background-title);
+	border-top:0.1em solid black;
 }
 
 .form div div
 {
-	background-color:var(--main-button);
 	color:white;
-	width:68%;
+	width:100%;
 	height:auto;
 	float:left;
 	clear:both;
-	margin:0.25% 15%;
-	padding:1%;
 }
 
-.form div div:last-child
+.form div > div p
 {
-	width:68%;
-	height:auto;
-	float:left;
-	clear:both;
-	margin:0.25% 15%;
-	padding:1%;
-}
-
-.form div div div
-{
-	background-color:black;
-	background-image:none;
-	border-style:none;
+	width:98%;
+	background-color:var(--data-block-background-subtitle);
+	padding:1% 1%;
+	margin:0% 0% 1% 0%;
+	font-size:125%;
+	border-top:0.01em solid black;
+	border-bottom:0.01em solid black;
 }
 
 .form div:first-child div div:first-child
@@ -125,12 +111,13 @@
 
 .form div:last-child a div
 {
-	background-color:var(--main-button);
+	background-color:var(--data-block-button);
 	color:white;
 	text-shadow:none;
 	border-style:none;
 	width:10%;
 	min-width:64px;
+	border-radius: 0.3em;
 	text-align:center;
 	clear:left;
 	margin:1%;
@@ -140,14 +127,37 @@
 
 .form div:last-child a div:hover
 {
-	background-color:#eb7878;
+	background-color:var(--data-block-button-hover);
 	text-shadow:0px 0px 4px white;
 	transform:scale(1.1);
 }
 
+.form input,.form select
+{
+	width:100%;
+	padding:1%;
+	margin:0% 0% 1% 0%;
+	text-align:center;
+	padding-inline:0%;
+	font-size: 100%;
+	border:none;
+	border-radius: 0em;
+}
+
+.form select > option
+{
+	background-color:white;
+}
+
+.form input:focus,.form select > option:focus
+{
+	background-color: #afafc8;
+	border-color:#6464ff;
+}
+
 .form input[type='submit']
 {
-	background-color:var(--main-button);
+	background-color:var(--data-block-button);
 	color:white;
 	font-size:16px;
 	border-style:none;
@@ -162,7 +172,7 @@
 
 .form input[type='submit']:hover
 {
-	background-color:#8ca0ff;
+	background-color:var(--data-block-button-hover);
 	text-shadow:0px 0px 4px white;
 	transform:scale(1.1);
 	cursor:pointer;
